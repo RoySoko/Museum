@@ -4,15 +4,14 @@
   padding: 0;
   box-sizing: border-box;
 }
-
-/* Make body a column flex container and stretch to full viewport height */
 body {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;        /* fill viewport */
+  min-height: 100vh;
   font-family: 'Segoe UI', sans-serif;
   color: #2e2e2e;
-  background: url('../images/river.jpg') no-repeat center/cover;
+  /* image */
+  background: url('../images/dog.png') no-repeat center/cover;
   line-height: 1.5;
 }
 
@@ -40,7 +39,7 @@ body {
   background: #a1683a;
 }
 
-/* Placeholder intro box (fixed height) */
+/* Placeholder intro box */
 .intro-box {
   background: rgba(243, 233, 210, 0.85);
   margin: 1.5rem auto;
@@ -51,13 +50,13 @@ body {
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
-/* Allow main content to grow and push footer down */
+/* Main content  */
 .home-content {
-  flex: 1;                  /* take up remaining space */
+  flex: 1;
   padding: 2rem 1rem;
 }
 
-/* Three-column grid */
+/* Three‐column grid */
 .columns {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
