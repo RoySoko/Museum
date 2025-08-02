@@ -4,6 +4,7 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   display: flex;
   flex-direction: column;
@@ -38,14 +39,21 @@ body {
   background: #a1683a;
 }
 
+/* Centered content wrapper */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 /* Placeholder intro box */
 .intro-box {
   background: rgba(243, 233, 210, 0.85);
-  margin: 1.5rem 1rem;
   padding: 2rem;
   border-radius: 8px;
   min-height: 150px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  margin-bottom: 1.5rem;
 }
 
 /* Main content grows to push footer down */
@@ -81,5 +89,6 @@ body {
 .site-footer p + p {
   margin-top: 0.5rem;
 }
+
 
 
