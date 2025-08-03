@@ -1,6 +1,4 @@
-/* ─────────────────────────────────────────
-   Reset & Base
-───────────────────────────────────────── */
+
 * {
   margin: 0;
   padding: 0;
@@ -17,9 +15,7 @@ body {
   line-height: 1.5;
 }
 
-/* ─────────────────────────────────────────
-   Header & Navigation
-───────────────────────────────────────── */
+
 header.site-header {
   background: rgba(46, 74, 53, 0.85);
   padding: 1rem;
@@ -43,18 +39,14 @@ nav.main-nav button:hover {
   background: #a1683a;
 }
 
-/* ─────────────────────────────────────────
-   Centered Wrapper
-───────────────────────────────────────── */
+
 .container {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-/* ─────────────────────────────────────────
-   Intro Box (Home Page)
-───────────────────────────────────────── */
+
 .intro-box {
   background: rgba(243, 233, 210, 0.85);
   padding: 2rem;
@@ -64,9 +56,7 @@ nav.main-nav button:hover {
   margin-bottom: 1.5rem;
 }
 
-/* ─────────────────────────────────────────
-   Home Content & Columns
-───────────────────────────────────────── */
+
 .home-content {
   flex: 1;
   padding: 2rem 1rem;
@@ -86,9 +76,7 @@ nav.main-nav button:hover {
   margin-bottom: 0.5rem;
 }
 
-/* ─────────────────────────────────────────
-   Secondary Navigation (Collections)
-───────────────────────────────────────── */
+
 .secondary-nav {
   display: flex;
   justify-content: center;
@@ -108,9 +96,7 @@ nav.main-nav button:hover {
   background: #a1683a;
 }
 
-/* ─────────────────────────────────────────
-   Footer
-───────────────────────────────────────── */
+
 footer.site-footer {
   background: rgba(46, 74, 53, 0.85);
   color: #f3e9d2;
@@ -122,9 +108,7 @@ footer.site-footer p + p {
   margin-top: 0.5rem;
 }
 
-/* ─────────────────────────────────────────
-   Staff Page Styling (1800s-inspired)
-───────────────────────────────────────── */
+
 .staff-container {
   max-width: 1000px;
   margin: 2rem auto;
@@ -166,17 +150,13 @@ footer.site-footer p + p {
   margin-bottom: 0.75rem;
 }
 
-/* ─────────────────────────────────────────
-   Staff Page Background Override
-───────────────────────────────────────── */
+
 body.staff-page {
   background-image: none !important;
   background-color: #f3f0e9 !important;
 }
 
-/* ─────────────────────────────────────────
-   Staff-Page Only Header/Nav/Footer Overrides
-───────────────────────────────────────── */
+
 body.staff-page header.site-header {
   background-color: #3d5a3d;
 }
@@ -195,18 +175,27 @@ body.staff-page footer.site-footer {
   color: #eae6dc;
 }
 
-/* ─────────────────────────────────────────
-   Responsive Tweaks
-───────────────────────────────────────── */
+
+.staff-container .staff-card:nth-child(even) {
+  flex-direction: row-reverse;
+}
+.staff-container .staff-card:nth-child(even) img {
+  border-right: none;
+  border-left: 1px solid #c8bfae;
+}
+
+
 @media (max-width: 640px) {
   .staff-card {
-    flex-direction: column;
+    flex-direction: column !important;
   }
   .staff-card img {
-    border-right: none;
+    border-right: none !important;
     border-bottom: 1px solid #c8bfae;
   }
 }
+
+
 
 
 
