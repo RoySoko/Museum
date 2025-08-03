@@ -1,4 +1,131 @@
+/* ─────────────────────────────────────────
+   Reset & Base
+───────────────────────────────────────── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  color: #2e2e2e;
+  background: url('../images/dog.png') no-repeat center/cover;
+  line-height: 1.5;
+}
+
+/* ─────────────────────────────────────────
+   Header & Navigation
+───────────────────────────────────────── */
+header.site-header {
+  background: rgba(46, 74, 53, 0.85);
+  padding: 1rem;
+  text-align: center;
+}
+header.site-header h1 {
+  color: #f3e9d2;
+  margin-bottom: 0.5rem;
+}
+nav.main-nav button {
+  background: #8b5e34;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin: 0 0.25rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+nav.main-nav button:hover {
+  background: #a1683a;
+}
+
+/* ─────────────────────────────────────────
+   Centered Wrapper
+───────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ─────────────────────────────────────────
+   Intro Box (Home Page)
+───────────────────────────────────────── */
+.intro-box {
+  background: rgba(243, 233, 210, 0.85);
+  padding: 2rem;
+  border-radius: 8px;
+  min-height: 150px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  margin-bottom: 1.5rem;
+}
+
+/* ─────────────────────────────────────────
+   Home Content & Columns
+───────────────────────────────────────── */
+.home-content {
+  flex: 1;
+  padding: 2rem 1rem;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+.column {
+  background: rgba(243, 233, 210, 0.9);
+  padding: 1rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+.column h2 {
+  margin-bottom: 0.5rem;
+}
+
+/* ─────────────────────────────────────────
+   Secondary Navigation (Collections)
+───────────────────────────────────────── */
+.secondary-nav {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 2rem 0;
+}
+.secondary-nav button {
+  background: #8b5e34;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.secondary-nav button:hover {
+  background: #a1683a;
+}
+
+/* ─────────────────────────────────────────
+   Footer
+───────────────────────────────────────── */
+footer.site-footer {
+  background: rgba(46, 74, 53, 0.85);
+  color: #f3e9d2;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.85rem;
+}
+footer.site-footer p + p {
+  margin-top: 0.5rem;
+}
+
+/* ─────────────────────────────────────────
+   Staff Page Styling (1800s-inspired)
+───────────────────────────────────────── */
 .staff-container {
   max-width: 1000px;
   margin: 2rem auto;
@@ -46,8 +173,11 @@
   margin-bottom: 0.75rem;
 }
 
-
+/* ─────────────────────────────────────────
+   Override Header/Nav/Footer for Staff Page
+───────────────────────────────────────── */
 header.site-header {
+  /* staff page uses slightly darker green */
   background-color: #3d5a3d;
 }
 header.site-header h1 {
@@ -65,6 +195,17 @@ footer.site-footer {
   color: #eae6dc;
 }
 
+/* ─────────────────────────────────────────
+   Staff Page Background Override
+───────────────────────────────────────── */
+body.staff-page {
+  background-image: none !important;
+  background-color: #f3f0e9 !important;
+}
+
+/* ─────────────────────────────────────────
+   Responsive Tweaks
+───────────────────────────────────────── */
 @media (max-width: 640px) {
   .staff-card {
     flex-direction: column;
@@ -74,3 +215,9 @@ footer.site-footer {
     border-bottom: 1px solid #c8bfae;
   }
 }
+
+
+
+
+
+
