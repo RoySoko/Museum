@@ -10,7 +10,7 @@
 <body class="collections-page">
   <header class="site-header">
     <h1>The Museum of Royce the Great, Wirehaired Wonder</h1>
-    <nav class="main-nav">
+    <nav class="main-nav" aria-label="Primary">
       <button onclick="location.href='../index.html'">Home</button>
       <button onclick="location.href='staff.html'">Staff</button>
       <button onclick="location.href='collections.html'">Collections</button>
@@ -19,198 +19,78 @@
 
   <main class="collections-content">
     <div class="container">
-      <nav class="secondary-nav">
-        <button onclick="showSection('archaeology')">Archaeology</button>
-        <button onclick="showSection('anthropology')">Anthropology</button>
+      <nav class="secondary-nav" aria-label="Collections sections">
+        <button id="btn-arch" aria-controls="archaeology" aria-expanded="true"  onclick="showSection('archaeology', this)">Archaeology</button>
+        <button id="btn-anth" aria-controls="anthropology" aria-expanded="false" onclick="showSection('anthropology', this)">Anthropology</button>
       </nav>
 
       <h1 class="gallery-title">Collections</h1>
 
+      <!-- One card visible in each section; arrows cycle through that section's items -->
+
       <!-- ARCHAEOLOGY -->
-      <section id="archaeology" class="collection-section">
-        <h2 class="section-title">Archaeology</h2>
+      <section id="archaeology" class="collection-section" aria-labelledby="arch-heading">
+        <h2 id="arch-heading" class="section-title" tabindex="-1">Archaeology</h2>
 
-        <!-- Hand-Carved Wooden Dog Whistle -->
-        <article class="artifact-card" data-artifact="whistle">
-          <button class="arrow left" aria-label="Previous image">&#10094;</button>
+        <article class="artifact-card" data-section="archaeology">
+          <button class="arrow left" aria-label="Previous item" onclick="prevItem('archaeology')">&#10094;</button>
+
           <div class="artifact-media">
-            <img class="artifact-image"
-                 src="../images/collections/handcarvedwoodendogwhistle.png"
-                 alt="Black-and-white field photo of a cedar dog whistle on a cloth, with notes and tools nearby.">
+            <img class="artifact-image" id="arch-image" src="" alt="">
           </div>
-          <button class="arrow right" aria-label="Next image">&#10095;</button>
+
+          <button class="arrow right" aria-label="Next item" onclick="nextItem('archaeology')">&#10095;</button>
 
           <div class="artifact-info">
-            <h3>Hand-Carved Wooden Dog Whistle</h3>
+            <h3 id="arch-name"></h3>
             <dl>
-              <dt>Material</dt><dd>Western red cedar body, twisted cedar bark cord, faint spruce-resin traces.</dd>
-              <dt>Size / Weight / Shape</dt><dd>9.1 cm × 1.6 cm; ~14 g; slender, tapered tube with a whisper-thin mouth opening.</dd>
-              <dt>Estimated Age</dt><dd>Precise dating in progress via stratigraphic scanning and isotope analysis. Estimated completion: <strong>April 17, 2026</strong>.</dd>
-              <dt>Preservation State</dt><dd>Complete; cedar with faint surface checking; cord frayed at the knot.</dd>
-              <dt>Location Found</dt><dd>Double Lakes bluff, Site D-2, 32–36 cm depth, silty loam with reed fragments.</dd>
-              <dt>Use & Function</dt><dd>Acoustic signal device.</dd>
-              <dt>Likely Purpose</dt><dd>Field commands for working dogs in open water and reed beds.</dd>
-              <dt>Evidence of Use</dt><dd>Smooth lip polish; two shallow tooth nicks; burnished suspension groove.</dd>
-              <dt>Manufacture Clues</dt><dd>Hand-bored channel; knife-cut notch; lathe-smoothed exterior.</dd>
-              <dt>Found With</dt><dd>Leather strap fragment, copper button with worn hunting motif, seed husks.</dd>
-              <dt>Burial / Habitat Context</dt><dd>Collapsed bank layer mixed with domestic debris.</dd>
-              <dt>Symbolism</dt><dd>Plain, work-first form cherished by those who know its sound.</dd>
-              <dt>Comparison</dt><dd>Comparable to rural handmade whistles from PNW hunting kits; tooth marks make it personal.</dd>
-            </dl>
-          </div>
-        </article>
-
-        <!-- Wirehaired Pointing Griffon Doll -->
-        <article class="artifact-card" data-artifact="doll">
-          <button class="arrow left" aria-label="Previous image">&#10094;</button>
-          <div class="artifact-media">
-            <img class="artifact-image"
-                 src="../images/collections/wirehairedpointinggriffondoll.png"
-                 alt="Black-and-white field photo of a handmade Griffon doll on a cloth, with notes and tools.">
-          </div>
-          <button class="arrow right" aria-label="Next image">&#10095;</button>
-
-          <div class="artifact-info">
-            <h3>Wirehaired Pointing Griffon Doll</h3>
-            <dl>
-              <dt>Material</dt><dd>Hand-tanned deerskin stitched with sinew; stuffing of dried moss and shed undercoat; river-stone eyes flecked with mica; ochre and charcoal detailing.</dd>
-              <dt>Size / Weight / Shape</dt><dd>21 cm × 12 cm; ~190 g; seated posture with attentive head tilt.</dd>
-              <dt>Estimated Age</dt><dd>Dating under review; stratigraphic + isotope labwork. Estimated completion: <strong>September 3, 2026</strong>.</dd>
-              <dt>Preservation State</dt><dd>Partial; one ear worn to stitching; seam loss on right flank; faint pigments.</dd>
-              <dt>Location Found</dt><dd>Cabin 1 attic, tucked 4 cm below a plank gap.</dd>
-              <dt>Use & Function</dt><dd>Child’s toy and comfort object.</dd>
-              <dt>Likely Purpose</dt><dd>Personal representation of a family Griffon during hunts/long workdays.</dd>
-              <dt>Evidence of Use</dt><dd>Worn muzzle; hugged-thin flanks; trace hearth-smoke scent.</dd>
-              <dt>Manufacture Clues</dt><dd>Uneven hand-cut panels; sinew stitching; short pigment strokes for wiry fur.</dd>
-              <dt>Found With</dt><dd>Two smooth game stones, a splintered clay bead, a woven grass cord, and graphite doodles of a stick figure walking a dog.</dd>
-              <dt>Burial / Habitat Context</dt><dd>Dry, dust-sealed cavity; minimal insect activity.</dd>
-              <dt>Symbolism</dt><dd>Talisman of partnership and safe returns.</dd>
-              <dt>Comparison</dt><dd>Parallels early zoomorphic toys; Griffon-specific detailing suggests a personal origin.</dd>
-            </dl>
-          </div>
-        </article>
-
-        <!-- Huckleberry-Dyed Woolen Sock of Joy -->
-        <article class="artifact-card" data-artifact="sock">
-          <button class="arrow left" aria-label="Previous image">&#10094;</button>
-          <div class="artifact-media">
-            <img class="artifact-image"
-                 src="../images/collections/huckleberrydyedwoolensockofjoy.png"
-                 alt="Black-and-white field photo of a frayed woolen sock on a cloth, with notes and tools.">
-          </div>
-          <button class="arrow right" aria-label="Next image">&#10095;</button>
-
-          <div class="artifact-info">
-            <h3>Huckleberry-Dyed Woolen Sock of Joy</h3>
-            <dl>
-              <dt>Material</dt><dd>Hand-spun wool dyed with crushed huckleberry skins and rainwater; nettle-fiber reinforcement at toe and heel.</dd>
-              <dt>Size / Weight / Shape</dt><dd>28 × 9 cm; ~110 g; tubular, rounded toe.</dd>
-              <dt>Estimated Age</dt><dd>Dating underway; stratigraphy + isotopes. Estimated completion: <strong>February 11, 2027</strong>.</dd>
-              <dt>Preservation State</dt><dd>Partial; intact heel, frayed toe; faint scent traces in lab conditions.</dd>
-              <dt>Location Found</dt><dd>Hearthside debris, Cabin Site 2, 12–18 cm depth.</dd>
-              <dt>Use & Function</dt><dd>Human clothing; later a canine “trophy.”</dd>
-              <dt>Likely Purpose</dt><dd>Everyday wear; later carried by a very pleased dog.</dd>
-              <dt>Evidence of Use</dt><dd>Distorted cuff from tugging; tooth-puncture holes; faint muddy paw prints.</dd>
-              <dt>Manufacture Clues</dt><dd>Even-gauge hand knitting; dye variegation from small-batch process.</dd>
-              <dt>Found With</dt><dd>Splintered stick, small river stone, broken clay cup handle.</dd>
-              <dt>Burial / Habitat Context</dt><dd>Domestic floor collapse, charred timbers; cool, low-light preservation.</dd>
-              <dt>Symbolism</dt><dd>To people: a sock. To the dog: joy you can carry.</dd>
-              <dt>Comparison</dt><dd>Similar to frontier socks; uniquely clear canine interaction.</dd>
+              <dt>Material</dt><dd id="arch-material"></dd>
+              <dt>Size/Weight/Shape</dt><dd id="arch-size"></dd>
+              <dt>Estimated Age</dt><dd id="arch-age"></dd>
+              <dt>Preservation State</dt><dd id="arch-pres"></dd>
+              <dt>Location Found</dt><dd id="arch-loc"></dd>
+              <dt>Use and Function</dt><dd id="arch-use"></dd>
+              <dt>Likely Purpose</dt><dd id="arch-purpose"></dd>
+              <dt>Evidence of Use</dt><dd id="arch-evidence"></dd>
+              <dt>Manufacture Clues</dt><dd id="arch-manu"></dd>
+              <dt>Found With</dt><dd id="arch-foundwith"></dd>
+              <dt>Burial or Habitat Context</dt><dd id="arch-context"></dd>
+              <dt>Symbolism</dt><dd id="arch-symbol"></dd>
+              <dt>Comparison</dt><dd id="arch-comp"></dd>
             </dl>
           </div>
         </article>
       </section>
 
       <!-- ANTHROPOLOGY -->
-      <section id="anthropology" class="collection-section" style="display:none;">
-        <h2 class="section-title">Anthropology</h2>
+      <section id="anthropology" class="collection-section" aria-labelledby="anth-heading" style="display:none;">
+        <h2 id="anth-heading" class="section-title" tabindex="-1">Anthropology</h2>
 
-        <!-- Puppy Teeth -->
-        <article class="artifact-card" data-artifact="puppyteeth">
-          <button class="arrow left" aria-label="Previous image">&#10094;</button>
+        <article class="artifact-card" data-section="anthropology">
+          <button class="arrow left" aria-label="Previous item" onclick="prevItem('anthropology')">&#10094;</button>
+
           <div class="artifact-media">
-            <img class="artifact-image"
-                 src="../images/collections/clusterofwirehairedpointinggriffonpuppypteeth.png"
-                 alt="Black-and-white field photo of a small cluster of shed puppy teeth on cloth.">
+            <img class="artifact-image" id="anth-image" src="" alt="">
           </div>
-          <button class="arrow right" aria-label="Next image">&#10095;</button>
+
+          <button class="arrow right" aria-label="Next item" onclick="nextItem('anthropology')">&#10095;</button>
 
           <div class="artifact-info">
-            <h3>Cluster of Wirehaired Pointing Griffon Puppy Teeth</h3>
+            <h3 id="anth-name"></h3>
             <dl>
-              <dt>Material</dt><dd>Deciduous canine and incisor teeth with faint root remnants; fine loam with spruce needles.</dd>
-              <dt>Size / Weight / Shape</dt><dd>Teeth 0.9–1.4 cm; cluster spread ~6.2 cm; ~3.4 g; irregular scatter.</dd>
-              <dt>Estimated Age</dt><dd>Micro-layer sediment + trace-element testing in progress. Estimated completion: <strong>November 8, 2026</strong>.</dd>
-              <dt>Preservation State</dt><dd>Exceptional; glossy enamel; no post-depositional damage.</dd>
-              <dt>Location Found</dt><dd>Edge of sunken kennel foundation, Site K-3, 8–12 cm depth.</dd>
-              <dt>Use & Function</dt><dd>Biological remains from natural tooth replacement.</dd>
-              <dt>Likely Purpose</dt><dd>Unintentional deposition during play/chewing (3–6 months).</dd>
-              <dt>Evidence of Use</dt><dd>Microwear striations; faint crescent marks from littermate mouthing.</dd>
-              <dt>Manufacture Clues</dt><dd>Not applicable.</dd>
-              <dt>Found With</dt><dd>Matted undercoat fur, fragment of woven reed mat, short stick worn smooth at both ends.</dd>
-              <dt>Burial / Habitat Context</dt><dd>Low-moisture soil beneath kennel bedding; protected from freeze-thaw.</dd>
-              <dt>Symbolism</dt><dd>Milestones of growing up, overlooked in the moment.</dd>
-              <dt>Comparison</dt><dd>Comparable to modern finds; notable for intact cluster and context.</dd>
-            </dl>
-          </div>
-        </article>
-
-        <!-- Femur, Canis familiaris -->
-        <article class="artifact-card" data-artifact="femur">
-          <button class="arrow left" aria-label="Previous image">&#10094;</button>
-          <div class="artifact-media">
-            <img class="artifact-image"
-                 src="../images/collections/femurcanisfamiliaris.png"
-                 alt="Black-and-white field photo of a canine femur on cloth with notes and tools.">
-          </div>
-          <button class="arrow right" aria-label="Next image">&#10095;</button>
-
-          <div class="artifact-info">
-            <h3>Femur, <em>Canis familiaris</em></h3>
-            <dl>
-              <dt>Material</dt><dd>Cortical bone.</dd>
-              <dt>Size / Weight / Shape</dt><dd>19.0 cm; ~110 g; slight anteroposterior curvature.</dd>
-              <dt>Estimated Age</dt><dd>High-resolution stratigraphic + isotope work in progress. Estimated completion: <strong>November 14, 2029</strong>.</dd>
-              <dt>Preservation State</dt><dd>Complete; minor surface weathering; no burning.</dd>
-              <dt>Location Found</dt><dd>Riverbank erosion face, Site E-3, just below “the last bend where Royce waited.”</dd>
-              <dt>Use & Function</dt><dd>Anatomical remains; no tool modification.</dd>
-              <dt>Likely Purpose</dt><dd>Natural skeletal element in redeposited fluvial layer; resting place hints at deliberate placement.</dd>
-              <dt>Evidence of Use</dt><dd>Small gnaw marks on distal epiphysis; faint root etching midshaft.</dd>
-              <dt>Manufacture Clues</dt><dd>Not applicable—unless decades of squirrel-chasing and river-splashing count as expert craftsmanship.</dd>
-              <dt>Found With</dt><dd>Smooth river stone with shallow groove; frayed plaited leather cord; bronze bead akin to Royce-era collar fittings.</dd>
-              <dt>Burial / Habitat Context</dt><dd>Mixed fluvial/colluvial horizon over compact sand; clustering suggests intentional deposition.</dd>
-              <dt>Symbolism</dt><dd>Possibly a remnant of Royce returned to his river; to some, an ordinary bone— to others, a quiet legend.</dd>
-              <dt>Comparison</dt><dd>Morphometrics match 25–30 kg Wirehaired Pointing Griffons in regional collections, including confirmed descendants of Royce.</dd>
-            </dl>
-          </div>
-        </article>
-
-        <!-- Partial Human Hand + Distal Radius -->
-        <article class="artifact-card" data-artifact="humanhand">
-          <button class="arrow left" aria-label="Previous image">&#10094;</button>
-          <div class="artifact-media">
-            <img class="artifact-image"
-                 src="../images/collections/partialhumanhand.png"
-                 alt="Black-and-white field photo of partial human hand bones and distal radius on cloth.">
-          </div>
-          <button class="arrow right" aria-label="Next image">&#10095;</button>
-
-          <div class="artifact-info">
-            <h3>Partial Human Hand & Distal Radius with Canine-Interaction Wear</h3>
-            <dl>
-              <dt>Material</dt><dd>Partial metacarpals, proximal phalanges, distal radius; cortical bone with preserved microstructure; faint mineral staining.</dd>
-              <dt>Size / Weight / Shape</dt><dd>~21 cm assembled; ~142 g; articulated curve suggests habitual cupped-hand posture.</dd>
-              <dt>Estimated Age</dt><dd>Osteometric + U-Th analysis underway with taphonomy specialists. Estimated completion: <strong>June 14, 2027</strong>.</dd>
-              <dt>Preservation State</dt><dd>Partial but well preserved; fine cracking; minor soil concretions.</dd>
-              <dt>Location Found</dt><dd>Under the east threshold stone, Cabin Site 7, 44–52 cm depth.</dd>
-              <dt>Use & Function</dt><dd>Biological remains; evidence of habitual motion.</dd>
-              <dt>Likely Purpose</dt><dd>Micro-wear suggests repetitive stroking/patting at low elevation consistent with dog interaction.</dd>
-              <dt>Evidence of Use</dt><dd>Polish along metacarpals; mild lipping on distal radius; remodeling at tendon attachment points.</dd>
-              <dt>Manufacture Clues</dt><dd>Biologically “shaped” by decades of daily use, not tools.</dd>
-              <dt>Found With</dt><dd>Fragment of wool cuff, small bronze button, sliver of leather with buckle remnant.</dd>
-              <dt>Burial / Habitat Context</dt><dd>Protected beneath threshold stone; stable microclimate.</dd>
-              <dt>Symbolism</dt><dd>A lifetime of scratches and pats etched into bone—bond made visible.</dd>
-              <dt>Comparison</dt><dd>Unlike occupational stress markers, this pattern aligns with affectionate canine interaction.</dd>
+              <dt>Material</dt><dd id="anth-material"></dd>
+              <dt>Size/Weight/Shape</dt><dd id="anth-size"></dd>
+              <dt>Estimated Age</dt><dd id="anth-age"></dd>
+              <dt>Preservation State</dt><dd id="anth-pres"></dd>
+              <dt>Location Found</dt><dd id="anth-loc"></dd>
+              <dt>Use and Function</dt><dd id="anth-use"></dd>
+              <dt>Likely Purpose</dt><dd id="anth-purpose"></dd>
+              <dt>Evidence of Use</dt><dd id="anth-evidence"></dd>
+              <dt>Manufacture Clues</dt><dd id="anth-manu"></dd>
+              <dt>Found With</dt><dd id="anth-foundwith"></dd>
+              <dt>Burial or Habitat Context</dt><dd id="anth-context"></dd>
+              <dt>Symbolism</dt><dd id="anth-symbol"></dd>
+              <dt>Comparison</dt><dd id="anth-comp"></dd>
             </dl>
           </div>
         </article>
