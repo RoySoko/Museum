@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Souvenir Shop – The Museum of Royce the Great, Wirehaired Wonder</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body class="shop-page">
+  <header class="site-header">
+    <h1>The Museum of Royce the Great, Wirehaired Wonder</h1>
+    <nav class="main-nav">
+      <button onclick="location.href='../index.html'">Home</button>
+      <button onclick="location.href='staff.html'">Staff</button>
+      <button onclick="location.href='collections.html'">Collections</button>
+      <button onclick="location.href='shop.html'">Shop</button>
+    </nav>
+  </header>
+
+  <main class="shop-wrap container" aria-labelledby="shop-title">
+    <h2 id="shop-title" class="shop-title">Souvenir Shop</h2>
+    <p class="shop-note">
+      Curated keepsakes inspired by the Double Lakes Clan and the legend of Royce the Great.
+      Click any image to view it larger. Add items to your cart using the buttons below.
+    </p>
+
+    <section class="shop-container" aria-label="Souvenir items">
+
+      <!-- Plush -->
+      <article class="souvenir-item" data-id="item-plush-001">
+        <img
+          src="../images/shop/royceplush.png"
+          alt="Wirehaired Pointing Griffon plush with big brows and beard sitting on a wooden table"
+          title="‘Comfort for long waits by the river bend.’"
+          onclick="openModal(this)">
+        <h3 class="item-title">Royce the Great Plush</h3>
+        <p class="item-meta">
+          From: Collections (Anthropology – symbolic canine legacies)
+        </p>
+        <p class="item-desc">
+          A soft, museum‑exclusive plush echoing Royce’s wise brows and distinguished beard.
+          Materials: hypoallergenic fiber fill, stitched felt brows, embroidered nose.
+        </p>
+        <p class="price"><strong>Price:</strong> $28.00</p>
+        <button
+          class="btn-add"
+          aria-label="Add Royce the Great Plush to cart"
+          onclick="addToCart('item-plush-001','Royce the Great Plush')">
+          Add Royce the Great Plush to Cart
+        </button>
+      </article>
+
+      <!-- Postcard -->
+      <article class="souvenir-item" data-id="item-card-002">
+        <img
+          src="../images/shop/postcard.png"
+          alt="Vintage-style postcard of Royce poised at the last river bend"
+          title="‘The last bend where Royce waited.’"
+          onclick="openModal(this)">
+        <h3 class="item-title">Postcard: Royce at the River Bend</h3>
+        <p class="item-meta">
+          From: Collections (Archaeology – river hunt records & iconography)
+        </p>
+        <p class="item-desc">
+          Matte postcard of Royce’s legendary stance near the Double Lakes confluence.
+          4×6 in., uncoated stock for fountain‑pen notes.
+        </p>
+        <p class="price"><strong>Price:</strong> $3.00</p>
+        <button
+          class="btn-add"
+          aria-label="Add Postcard: Royce at the River Bend to cart"
+          onclick="addToCart('item-card-002','Postcard: Royce at the River Bend')">
+          Add Postcard: Royce at the River Bend to Cart
+        </button>
+      </article>
+
+      <!-- Whistle -->
+      <article class="souvenir-item" data-id="item-whistle-003">
+        <img
+          src="../images/shop/whistle.png"
+          alt="Classic wooden dog whistle resting on a wooden table"
+          title="‘The first trill after a long day’s hunt.’"
+          onclick="openModal(this)">
+        <h3 class="item-title">Cedar Dog Whistle</h3>
+        <p class="item-meta">
+          From: Collections (Archaeology – field signals & hunting tools)
+        </p>
+        <p class="item-desc">
+          Hand‑finished cedar whistle inspired by the artifact recovered at Site D‑2.
+          Satin cord lanyard included. For training or display.
+        </p>
+        <p class="price"><strong>Price:</strong> $16.00</p>
+        <button
+          class="btn-add"
+          aria-label="Add Cedar Dog Whistle to cart"
+          onclick="addToCart('item-whistle-003','Cedar Dog Whistle')">
+          Add Cedar Dog Whistle to Cart
+        </button>
+      </article>
+
+      <!-- Socks -->
+      <article class="souvenir-item" data-id="item-socks-004">
+        <img
+          src="../images/shop/socks.png"
+          alt="Folded purple huckleberry-dyed socks on a wooden table"
+          title="‘Portable joy, soft and proudly carried.’"
+          onclick="openModal(this)">
+        <h3 class="item-title">Huckleberry Socks</h3>
+        <p class="item-meta">
+          From: Collections (Anthropology – Huckleberry‑Dyed Woolen Sock of Joy)
+        </p>
+        <p class="item-desc">
+          Cozy crew socks in a huckleberry purple inspired by the famed ‘Sock of Joy.’
+          Cotton/wool blend, reinforced heel & toe. One size most.
+        </p>
+        <p class="price"><strong>Price:</strong> $12.00</p>
+        <button
+          class="btn-add"
+          aria-label="Add Huckleberry Socks to cart"
+          onclick="addToCart('item-socks-004','Huckleberry Socks')">
+          Add Huckleberry Socks to Cart
+        </button>
+      </article>
+
+    </section>
+
+    <!-- a11y live region for cart messages -->
+    <p class="sr-only" aria-live="polite" id="cart-status"></p>
+  </main>
+
+  <footer class="site-footer">
+    <p>This is a fictitious website created purely for academic purposes.</p>
+    <p>Some images and content were generated with AI assistance. All shop items are museum‑style replicas.</p>
+  </footer>
+
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Image preview">
+    <div class="modal-content">
+      <button class="close-modal" aria-label="Close preview" onclick="closeModal()">&times;</button>
+      <img id="modal-image" src="" alt="">
+      <p id="modal-caption" class="modal-caption"></p>
+    </div>
+  </div>
+
+  <script src="../js/shop.js"></script>
+</body>
+</html>
