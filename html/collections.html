@@ -19,9 +19,10 @@
 
   <main class="collection-container">
     <nav class="secondary-nav">
-      <button id="btn-arch" class="is-active" onclick="showSection('archaeology')">Archaeology</button>
-      <button id="btn-anth" onclick="showSection('anthropology')">Anthropology</button>
-    </nav>
+  <button id="btn-arch" onclick="showSection('archaeology')" class="is-active">Archaeology</button>
+  <button id="btn-anth" onclick="showSection('anthropology')">Anthropology</button>
+</nav>
+
 
     <section id="archaeology" class="collection-section active" aria-label="Archaeology Collection">
       <div class="collection-card">
@@ -45,7 +46,7 @@
       </div>
 
       <div class="collection-card">
-        <img src="../images/collections/wirehairedpointinggriffondoll.png" alt="Handmade Wirehaired Pointing Griffon doll on a field table">
+        <img src="../images/collections/wiredhairedpointinggriffondoll.png" alt="Handmade Wirehaired Pointing Griffon doll on a field table">
         <div class="collection-info">
           <h2>Wirehaired Pointing Griffon Doll</h2>
           <p class="meta">Material: Hand-tanned deerskin panels stitched with sinew, stuffed with a blend of dried moss and shed undercoat from a real dog, eyes formed from polished river stones flecked with mica, detailing brushed with natural ochre and charcoal pigments.</p>
@@ -135,3 +136,40 @@
           <p>Estimated Age: Precise dating is still under review; the piece is currently undergoing high-resolution stratigraphic scanning and isotope analysis by a joint team of preservation scientists and chronometry specialists to narrow its origin down to the exact year—and possibly even the month—of creation. Estimated Completion Date for Analysis: November 14, 2029.</p>
           <p>Preservation State: Complete; minor surface weathering; no burning.</p>
           <p>Location Found: Riverbank erosion face, Site E-3, nestled in a shallow alcove of silt and root, just below what clan records describe as “the last bend where Royce waited.”</p
+           <!-- end of your main content -->
+  </main>
+
+  <footer class="site-footer">
+    <p>This is a fictitious website created purely for academic purposes.</p>
+    <p>Some images and content were generated with AI assistance.</p>
+  </footer>
+
+  <script>
+    function showSection(id) {
+      // toggle sections
+      document.querySelectorAll('.collection-section').forEach(sec => {
+        sec.classList.toggle('active', sec.id === id);
+      });
+      // toggle button highlight
+      const archBtn = document.getElementById('btn-arch');
+      const anthBtn = document.getElementById('btn-anth');
+      if (archBtn && anthBtn) {
+        archBtn.classList.toggle('is-active', id === 'archaeology');
+        anthBtn.classList.toggle('is-active', id === 'anthropology');
+        archBtn.setAttribute('aria-expanded', id === 'archaeology');
+        anthBtn.setAttribute('aria-expanded', id === 'anthropology');
+      }
+    }
+
+    // default view on load (supports #anthropology deep link)
+    document.addEventListener('DOMContentLoaded', () => {
+      if (location.hash === '#anthropology') {
+        showSection('anthropology');
+      } else {
+        showSection('archaeology');
+      }
+    });
+  </script>
+</body>
+</html>
+                                             
