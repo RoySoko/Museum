@@ -192,143 +192,79 @@ body.staff-page footer.site-footer {
     border-bottom: 1px solid #c8bfae;
   }
 }
-/* Collections page overrides */
+/* Collections page styles */
 body.collections-page {
-  background-image: none;
-  background-color: #e8ddc7; /* neutral canvas-tent beige */
+  background-image: none !important;
+  background-color: #d4c79a !important;
 }
 
-.collections-content {
-  padding: 2rem 1rem;
+.collection-container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 0 1rem;
 }
 
-.gallery-title {
-  text-align: center;
-  font-family: Georgia, serif;
+.collection-card {
+  display: flex;
+  flex-wrap: wrap;
+  background: rgba(243, 233, 210, 0.9);
+  border: 1px solid #c8bfae;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.collection-card + .collection-card {
+  margin-top: 2rem;
+}
+
+.collection-card img {
+  flex: 1 1 300px;
+  max-width: 300px;
+  object-fit: cover;
+  border-right: 1px solid #c8bfae;
+}
+
+.collection-info {
+  flex: 2 1 400px;
+  padding: 1.5rem;
+}
+
+.collection-info h2 {
+  margin-top: 0;
+  margin-bottom: 0.25rem;
+  font-family: 'Georgia', serif;
   color: #3d5a3d;
-  margin: 0 0 1rem;
 }
 
-.section-title {
-  font-family: Georgia, serif;
-  color: #3d5a3d;
-  margin: 1rem 0 1rem;
-  text-align: left;
+.collection-info .meta {
+  margin: 0.3rem 0;
+  font-style: italic;
+  color: #5a4f3b;
+}
+
+.collection-info p {
+  line-height: 1.6;
+  margin-bottom: 0.6rem;
 }
 
 .collection-section {
+  display: none;
+}
+
+.collection-section.active {
   display: block;
-  max-width: 1100px;
-  margin: 0 auto 2rem;
 }
 
-.artifact-card {
-  position: relative;
-  display: grid;
-  grid-template-columns: 56px 1fr 56px;
-  grid-template-rows: auto;
-  gap: 0.5rem;
-  align-items: center;
-  background: rgba(243, 233, 210, 0.9); /* matches home/staff card tone */
-  border: 1px solid #c8bfae;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.08);
-  padding: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.artifact-media {
-  grid-column: 2 / 3;
-  justify-self: center;
-  width: 100%;
-  max-width: 980px;
-}
-
-.artifact-image {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  display: block;
-  border: 1px solid #c8bfae;
-}
-
-.artifact-info {
-  grid-column: 1 / 4;
-  background: rgba(255,255,255,0.6);
-  border: 1px solid #e1d8c8;
-  border-radius: 8px;
-  padding: 1rem;
-  margin-top: 0.75rem;
-}
-
-.artifact-info h3 {
-  margin: 0 0 0.5rem;
-  font-family: Georgia, serif;
-  color: #3d5a3d;
-}
-
-.artifact-info dl {
-  display: grid;
-  grid-template-columns: 220px 1fr;
-  gap: 0.4rem 1rem;
-}
-
-.artifact-info dt {
-  font-weight: 700;
-  color: #5a4f3b;
-}
-
-.artifact-info dd {
-  margin: 0;
-}
-
-.artifact-card .arrow {
-  grid-row: 1 / 2;
-  align-self: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: 1px solid #c8bfae;
-  background: rgba(255,255,255,0.85);
-  font-size: 1.6rem;
-  line-height: 1;
-  cursor: pointer;
-  transition: transform 120ms ease, background 120ms ease;
-}
-
-.artifact-card .arrow:hover {
-  transform: scale(1.06);
-  background: #fff;
-}
-
-.artifact-card .arrow.left { grid-column: 1 / 2; }
-.artifact-card .arrow.right { grid-column: 3 / 4; }
-
-.ai-note {
-  text-align: center;
-  font-size: 0.95rem;
-  color: #5a4f3b;
-  margin-top: 1rem;
-  background: rgba(243, 233, 210, 0.65);
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
-  border: 1px solid #c8bfae;
-}
-
-/* Responsive */
-@media (max-width: 840px) {
-  .artifact-card {
-    grid-template-columns: 44px 1fr 44px;
+/* Responsive tweaks */
+@media (max-width: 640px) {
+  .collection-card {
+    flex-direction: column;
   }
-  .artifact-info dl {
-    grid-template-columns: 1fr;
+  .collection-card img {
+    border-right: none;
+    border-bottom: 1px solid #c8bfae;
+    max-width: 100%;
   }
 }
 
-@media (max-width: 560px) {
-  .artifact-card { grid-template-columns: 1fr; }
-  .artifact-card .arrow.left,
-  .artifact-card .arrow.right { display: none; }
-  .artifact-media { grid-column: 1 / -1; }
-  .artifact-info { grid-column: 1 / -1; }
-}
