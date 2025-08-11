@@ -267,11 +267,17 @@ body.shop-page { background-image: none; background-color: #d4c79a; }
 .shop-title { color: #3d5a3d; font-family: Georgia, serif; margin-bottom: .5rem; }
 .shop-note { color: #5a4f3b; margin-bottom: 1.25rem; }
 
-.shop-container {
+.shop-container{
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
 }
+
+/* Responsive fallbacks so it doesn’t break on smaller screens */
+@media (max-width: 1100px){ .shop-container{ grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 800px){  .shop-container{ grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px){  .shop-container{ grid-template-columns: 1fr; } }
+
 
 .souvenir-item {
   background: rgba(243,233,210,0.95);
