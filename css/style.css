@@ -191,6 +191,30 @@ body.staff-page footer.site-footer {
     border-right: none !important;
     border-bottom: 1px solid #c8bfae;
   }
+  .collection-card {
+  display: flex;
+  flex-wrap: wrap;
+  background: rgba(243, 233, 210, 0.9);
+  border: 1px solid #c8bfae;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.collection-card img {
+  flex: 1 1 300px;
+  max-width: 300px;
+  height: auto; /* Keep original aspect ratio */
+  object-fit: cover;
+  align-self: flex-start; /* Prevent stretching to full height of text */
+}
+
+.collection-info {
+  flex: 2 1 400px;
+  padding: 1.5rem;
+}
+
 }
 /* Collections page styles */
 body.collections-page {
