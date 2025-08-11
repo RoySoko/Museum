@@ -334,4 +334,13 @@ body.shop-page { background-image: none; background-color: #d4c79a; }
   float:right;
 }
 .close-modal:hover{ background:#507650; }
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.souvenir-item {
+  width: auto; /* Let grid control width */
+}
+
 
