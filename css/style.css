@@ -182,16 +182,16 @@ body.staff-page footer.site-footer {
   border-left: 1px solid #c8bfae;
 }
 
-
+/* Close the staff mobile block first (yours was left open) */
 @media (max-width: 640px) {
-  .staff-card {
-    flex-direction: column !important;
-  }
+  .staff-card { flex-direction: column !important; }
   .staff-card img {
     border-right: none !important;
     border-bottom: 1px solid #c8bfae;
   }
-  /* Collections page */
+} /* <-- important: close this block */
+
+/* Collections page */
 body.collections-page {
   background-image: none !important;
   background-color: #d4c79a !important;
@@ -206,7 +206,7 @@ body.collections-page {
 .collection-card {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;        /* <-- stops vertical stretching */
+  align-items: flex-start;           /* stops image from stretching */
   background: rgba(243,233,210,.9);
   border: 1px solid #c8bfae;
   border-radius: 8px;
@@ -216,12 +216,12 @@ body.collections-page {
 }
 
 .collection-card img {
-  flex: 0 0 300px;               /* fixed column for image */
+  flex: 0 0 300px;                   /* fixed column for image */
   width: 300px;
-  height: auto;                   /* keep aspect ratio */
-  object-fit: contain;            /* no cropping */
+  height: auto;                      /* keep aspect ratio */
+  object-fit: contain;               /* no crop */
   border-right: 1px solid #c8bfae;
-  align-self: flex-start;         /* ensure it doesn't stretch */
+  align-self: flex-start;            /* hug the top */
 }
 
 .collection-info {
@@ -250,7 +250,7 @@ body.collections-page {
 .collection-section { display: none; }
 .collection-section.active { display: block; }
 
-/* Mobile */
+/* Collections mobile */
 @media (max-width: 640px) {
   .collection-card { flex-direction: column; }
   .collection-card img {
