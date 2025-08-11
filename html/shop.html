@@ -1,14 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="robots" content="noindex, nofollow">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Souvenir Shop – The Museum of Royce the Great, Wirehaired Wonder</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Souvenir Shop – The Museum of Royce the Great</title>
   <link rel="stylesheet" href="../css/style.css">
+
+  <style>
+    /* Basic shop layout */
+    .shop-wrap { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; }
+    .shop-grid { display: flex; flex-wrap: wrap; gap: 20px; }
+
+    .souvenir-item {
+      width: 255px;
+      background: rgba(243,233,210,.95);
+      border: 1px solid #c8bfae;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,.08);
+      position: relative;
+      transition: transform .08s ease-in-out;
+    }
+    .souvenir-item:hover { transform: translateY(-2px); }
+
+    .souvenir-item .thumb {
+      display: block;
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      cursor: zoom-in;
+      background: #eee;
+    }
+
+    .souvenir-item .card-body { padding: 12px 12px 14px; }
+    .souvenir-item h3 { font: 600 1.05rem/1.2 Georgia, serif; color:#3d5a3d; margin: 0 0 .4rem; }
+    .souvenir-item p { font-size: .92rem; margin: 0 0 .4rem; color:#2e2e2e; }
+    .souvenir-item .price { font-weight: 700; margin-top: .25rem; }
+
+    .souvenir-item button {
+      width: 100%;
+      margin-top: .6rem;
+      padding: .55rem .75rem;
+      font-weight: 700;
+      border: 0;
+      border-radius: 6px;
+      background: #8b5e34;
+      color: #fff;
+      cursor: pointer;
+    }
+    .souvenir-item button:hover { background: #a1683a; }
+
+    /* Pretty tooltips driven by data-tip (also leaves native title intact) */
+    .souvenir-item[data-tip]::after {
+      content: attr(data-tip);
+      position: absolute;
+      left: 50%; transform: translateX(-50%);
+      bottom: calc(100% + 8px);
+      white-space: nowrap;
+      background: #2e2e2e; color: #fff;
+      font-size: .8rem; line-height: 1;
+      padding: .45rem .6rem; border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,.18);
+      opacity: 0; pointer-events: none; transition: .12s ease;
+    }
+    .souvenir-item:hover::after { opacity: 1; }
+    .souvenir-item[data-tip]::before {
+      content: ""; position: absolute; left: 50%; transform: translateX(-50%);
+      bottom: calc(100% + 3px);
+      border: 6px solid transparent; border-top-color: #2e2e2e;
+      opacity: 0; transition: .12s ease;
+    }
+    .souvenir-item:hover::before { opacity: 1; }
+
+    /* Modal */
+    .modal {
+      display: none; position: fixed; inset: 0; z-index: 9999;
+      background: rgba(0,0,0,.8);
+      align-items: center; justify-content: center;
+      padding: 2rem;
+    }
+    .modal.open { display: flex; }
+    .modal-card {
+      width: min(900px, 96vw);
+      background: #fff; border-radius: 12px; overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+    }
+    .modal-media { background:#111; display:flex; align-items:center; justify-content:center; }
+    .modal-media img { width: 100%; height: auto; display:block; }
+    .modal-meta { padding: 12px 14px; display:flex; align-items:center; gap:.5rem; }
+    .modal-title { font: 600 1rem/1.2 Georgia, serif; color:#2e2e2e; flex: 1; }
+    .modal-close {
+      border:0; background:#8b5e34; color:#fff; padding:.45rem .7rem; border-radius:6px; cursor:pointer;
+    }
+    .modal-close:hover { background:#a1683a; }
+
+    @media (max-width:640px){
+      .souvenir-item { width: 100%; }
+    }
+  </style>
 </head>
 
-<body class="shop-page">
+<body class="collections-page">
   <header class="site-header">
     <h1>The Museum of Royce the Great, Wirehaired Wonder</h1>
     <nav class="main-nav">
@@ -19,130 +111,157 @@
     </nav>
   </header>
 
-  <main class="shop-wrap container" aria-labelledby="shop-title">
-    <h2 id="shop-title" class="shop-title">Souvenir Shop</h2>
-    <p class="shop-note">
-      Curated keepsakes inspired the legend of Royce the Great.
-      Click any image to view it larger. Add items to your cart using the buttons below.
+  <main class="shop-wrap">
+    <h2 style="text-align:center; margin-bottom:.25rem; color:#3d5a3d; font-family:Georgia,serif;">Souvenir Shop</h2>
+    <p style="text-align:center; max-width:760px; margin:0 auto 1.25rem; color:#4b473d;">
+      Objects inspired by the Double Lakes Clan collections. Click any image to view it larger.  
+      Hover an item to see a short cultural note.
     </p>
 
-    <section class="shop-container" aria-label="Souvenir items">
+    <section class="shop-grid" id="shopGrid">
 
       <!-- Plush -->
-      <article class="souvenir-item" data-id="item-plush-001">
-        <img
-          src="../images/shop/royceplush.png"
-          alt="Wirehaired Pointing Griffon plush with big brows and beard sitting on a wooden table"
-          title="‘Comfort for long waits by the river bend.’"
-          onclick="openModal(this)">
-        <h3 class="item-title">Royce the Great Plush</h3>
-        <p class="item-meta">
-          From: Collections (Anthropology – symbolic canine legacies)
-        </p>
-        <p class="item-desc">
-          A soft, museum‑exclusive plush echoing Royce’s wise brows and distinguished beard.
-          Materials: hypoallergenic fiber fill, stitched felt brows, embroidered nose.
-        </p>
-        <p class="price"><strong>Price:</strong> $28.00</p>
-        <button
-          class="btn-add"
-          aria-label="Add Royce the Great Plush to cart"
-          onclick="addToCart('item-plush-001','Royce the Great Plush')">
-          Add Royce the Great Plush to Cart
-        </button>
+      <article class="souvenir-item"
+               data-id="item-plush"
+               data-tip="“A soft stand-in for the partner left at home.”"
+               title="“A soft stand-in for the partner left at home.”">
+        <img class="thumb"
+             src="../images/shop/royceplush.png"
+             data-full="../images/shop/royceplush.png"
+             alt="Wirehaired Pointing Griffon plush souvenir on wooden table"
+             onclick="openModal(this)"
+        />
+        <div class="card-body">
+          <h3>Wirehaired Pointing Griffon Plush</h3>
+          <p>From the Double Lakes Clan collections (Toy; Hide &amp; moss inspiration; Comfort object).</p>
+          <p class="price">$24.00</p>
+          <button aria-label="Add Wirehaired Pointing Griffon Plush to cart"
+                  onclick="addToCart('item-plush','Wirehaired Pointing Griffon Plush')">
+            Add Wirehaired Pointing Griffon Plush to Cart
+          </button>
+        </div>
       </article>
 
       <!-- Postcard -->
-      <article class="souvenir-item" data-id="item-card-002">
-        <img
-          src="../images/shop/postcard.png"
-          alt="Vintage-style postcard of Royce poised at the last river bend"
-          title="‘The last bend where Royce waited.’"
-          onclick="openModal(this)">
-        <h3 class="item-title">Postcard: Royce at the River Bend</h3>
-        <p class="item-meta">
-          From: Collections (Archaeology – river hunt records & iconography)
-        </p>
-        <p class="item-desc">
-          Matte postcard of Royce’s legendary stance near the Double Lakes confluence.
-          4×6 in., uncoated stock for fountain‑pen notes.
-        </p>
-        <p class="price"><strong>Price:</strong> $3.00</p>
-        <button
-          class="btn-add"
-          aria-label="Add Postcard: Royce at the River Bend to cart"
-          onclick="addToCart('item-card-002','Postcard: Royce at the River Bend')">
-          Add Postcard: Royce at the River Bend to Cart
-        </button>
+      <article class="souvenir-item"
+               data-id="item-postcard"
+               data-tip="“The last bend where Royce waited.”"
+               title="“The last bend where Royce waited.”">
+        <img class="thumb"
+             src="../images/shop/postcard.png"
+             data-full="../images/shop/postcard.png"
+             alt="Postcard of Royce the Great at the river bend"
+             onclick="openModal(this)"
+        />
+        <div class="card-body">
+          <h3>Postcard: Royce at the River Bend</h3>
+          <p>From the Double Lakes Clan collections (Image; River bend; Field traditions).</p>
+          <p class="price">$3.50</p>
+          <button aria-label="Add Postcard: Royce at the River Bend to cart"
+                  onclick="addToCart('item-postcard','Postcard: Royce at the River Bend')">
+            Add Postcard: Royce at the River Bend to Cart
+          </button>
+        </div>
       </article>
 
       <!-- Whistle -->
-      <article class="souvenir-item" data-id="item-whistle-003">
-        <img
-          src="../images/shop/whistle.png"
-          alt="Classic wooden dog whistle resting on a wooden table"
-          title="‘The first trill after a long day’s hunt.’"
-          onclick="openModal(this)">
-        <h3 class="item-title">Cedar Dog Whistle</h3>
-        <p class="item-meta">
-          From: Collections (Archaeology – field signals & hunting tools)
-        </p>
-        <p class="item-desc">
-          Hand‑finished cedar whistle inspired by the artifact recovered at Site D‑2.
-          Satin cord lanyard included. For training or display.
-        </p>
-        <p class="price"><strong>Price:</strong> $16.00</p>
-        <button
-          class="btn-add"
-          aria-label="Add Cedar Dog Whistle to cart"
-          onclick="addToCart('item-whistle-003','Cedar Dog Whistle')">
-          Add Cedar Dog Whistle to Cart
-        </button>
+      <article class="souvenir-item"
+               data-id="item-whistle"
+               data-tip="“The first trill after a long day’s hunt.”"
+               title="“The first trill after a long day’s hunt.”">
+        <img class="thumb"
+             src="../images/shop/whistle.png"
+             data-full="../images/shop/whistle.png"
+             alt="Wooden dog whistle souvenir on table"
+             onclick="openModal(this)"
+        />
+        <div class="card-body">
+          <h3>Cedar Dog Whistle (Replica)</h3>
+          <p>From the Double Lakes Clan collections (Cedar; Shoreline homestead; Field signals).</p>
+          <p class="price">$14.00</p>
+          <button aria-label="Add Cedar Dog Whistle to cart"
+                  onclick="addToCart('item-whistle','Cedar Dog Whistle (Replica)')">
+            Add Cedar Dog Whistle (Replica) to Cart
+          </button>
+        </div>
       </article>
 
       <!-- Socks -->
-      <article class="souvenir-item" data-id="item-socks-004">
-        <img
-          src="../images/shop/socks.png"
-          alt="Folded purple huckleberry-dyed socks on a wooden table"
-          title="‘Portable joy, soft and proudly carried.’"
-          onclick="openModal(this)">
-        <h3 class="item-title">Huckleberry Socks</h3>
-        <p class="item-meta">
-          From: Collections (Anthropology – Huckleberry‑Dyed Woolen Sock of Joy)
-        </p>
-        <p class="item-desc">
-          Cozy crew socks in a huckleberry purple inspired by the famed ‘Sock of Joy.’
-          Cotton/wool blend, reinforced heel & toe. One size most.
-        </p>
-        <p class="price"><strong>Price:</strong> $12.00</p>
-        <button
-          class="btn-add"
-          aria-label="Add Huckleberry Socks to cart"
-          onclick="addToCart('item-socks-004','Huckleberry Socks')">
-          Add Huckleberry Socks to Cart
-        </button>
+      <article class="souvenir-item"
+               data-id="item-socks"
+               data-tip="“Portable joy, carried like a prize.”"
+               title="“Portable joy, carried like a prize.”">
+        <img class="thumb"
+             src="../images/shop/socks.png"
+             data-full="../images/shop/socks.png"
+             alt="Purple huckleberry-dyed socks folded on table"
+             onclick="openModal(this)"
+        />
+        <div class="card-body">
+          <h3>Huckleberry Dyed Socks</h3>
+          <p>From the Double Lakes Clan collections (Wool &amp; nettle; Hearth layer; Winter wear).</p>
+          <p class="price">$12.00</p>
+          <button aria-label="Add Huckleberry Dyed Socks to cart"
+                  onclick="addToCart('item-socks','Huckleberry Dyed Socks')">
+            Add Huckleberry Dyed Socks to Cart
+          </button>
+        </div>
       </article>
 
     </section>
-
-    <!-- a11y live region for cart messages -->
-    <p class="sr-only" aria-live="polite" id="cart-status"></p>
   </main>
 
   <footer class="site-footer">
     <p>This is a fictitious website created purely for academic purposes.</p>
-    <p>All images and some content were generated with AI assistance.</p>
+    <p>All images and some content were generated with AI assistance and then curated/edited by a human.</p>
   </footer>
 
-  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Image preview">
-    <div class="modal-content">
-      <button class="close-modal" aria-label="Close preview" onclick="closeModal()">&times;</button>
-      <img id="modal-image" src="" alt="">
-      <p id="modal-caption" class="modal-caption"></p>
+  <!-- Single, reusable modal -->
+  <div class="modal" id="itemModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card">
+      <div class="modal-media">
+        <img id="modalImg" src="" alt="">
+      </div>
+      <div class="modal-meta">
+        <div id="modalTitle" class="modal-title">Preview</div>
+        <button class="modal-close" onclick="closeModal()">Close</button>
+      </div>
     </div>
   </div>
 
-  <script src="../js/shop.js"></script>
+  <script>
+    // Tooltips handled by CSS via data-tip; keep title for native assistive tech.
+
+    // Minimal Phase-1 cart stub
+    function addToCart(id, name){
+      alert('Added "' + name + '" to cart. (Cart logic arrives in Phase 2)');
+    }
+
+    // One modal for all items
+    function openModal(imgEl){
+      const full = imgEl.getAttribute('data-full') || imgEl.src;
+      const title = imgEl.closest('.souvenir-item')?.querySelector('h3')?.textContent?.trim() || 'Preview';
+
+      const modal = document.getElementById('itemModal');
+      const modalImg = document.getElementById('modalImg');
+      const modalTitle = document.getElementById('modalTitle');
+
+      modalImg.src = full;
+      modalImg.alt = imgEl.alt || title;
+      modalTitle.textContent = title;
+
+      modal.classList.add('open');
+    }
+    function closeModal(){
+      document.getElementById('itemModal').classList.remove('open');
+    }
+    // Close on backdrop click / Esc
+    document.getElementById('itemModal').addEventListener('click', (e)=>{
+      if(e.target.id === 'itemModal') closeModal();
+    });
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape') closeModal();
+    });
+  </script>
 </body>
 </html>
