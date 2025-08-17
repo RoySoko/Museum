@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="robots" content="noindex, nofollow">
+  <meta name="author" content="Amanda Sokolowski">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Collections – The Museum of Royce the Great, Wirehaired Wonder</title>
   <link rel="stylesheet" href="../css/style.css">
@@ -19,15 +20,21 @@
   </header>
 
   <main class="collection-container">
-    <nav class="secondary-nav">
-  <button id="btn-arch" onclick="showSection('archaeology')" class="is-active">Archaeology</button>
-  <button id="btn-anth" onclick="showSection('anthropology')">Anthropology</button>
-</nav>
+    <nav class="secondary-nav" aria-label="Collection categories">
+      <button id="btn-arch" onclick="showSection('archaeology')" class="is-active" aria-expanded="true">Archaeology</button>
+      <button id="btn-anth" onclick="showSection('anthropology')" aria-expanded="false">Anthropology</button>
+    </nav>
 
+    <p class="collection-tip">Click an image to read the Interpretation modal.</p>
 
+    <!-- ===================== Archaeology ===================== -->
     <section id="archaeology" class="collection-section active" aria-label="Archaeology Collection">
       <div class="collection-card">
-        <img src="../images/collections/handcarvedwoodendogwhistle.png" alt="Hand-carved wooden dog whistle on a field table">
+        <img
+          src="../images/collections/handcarvedwoodendogwhistle.png"
+          alt="Hand-carved wooden dog whistle on a field table"
+          class="open-modal"
+          data-modal-target="#modal-text-whistle">
         <div class="collection-info">
           <h2>Hand-Carved Wooden Dog Whistle</h2>
           <p class="meta">Material: Western red cedar body, twisted cedar bark cord, faint traces of spruce resin that still hold a ghost of a forest scent if warmed in the hand.</p>
@@ -47,123 +54,209 @@
       </div>
 
       <div class="collection-card">
-        <img src="../images/collections/wiredhairedpointinggriffondoll.png" alt="Handmade Wirehaired Pointing Griffon doll on a field table">
+        <img
+          src="../images/collections/wiredhairedpointinggriffondoll.png"
+          alt="Handmade Wirehaired Pointing Griffon doll on a field table"
+          class="open-modal"
+          data-modal-target="#modal-text-doll">
         <div class="collection-info">
           <h2>Wirehaired Pointing Griffon Doll</h2>
           <p class="meta">Material: Hand-tanned deerskin panels stitched with sinew, stuffed with a blend of dried moss and shed undercoat from a real dog, eyes formed from polished river stones flecked with mica, detailing brushed with natural ochre and charcoal pigments.</p>
           <p><b>Size/Weight/Shape:</b> 21 cm nose-to-tail × 12 cm high; ~190 g; seated posture with head subtly tilted as though attentive to a distant call.</p>
-          <p><b>Estimated Age:</b> Precise dating is still under review; the piece is currently undergoing high-resolution stratigraphic scanning and isotope analysis by a joint team of preservation scientists and chronometry specialists to narrow its origin down to the exact year—and possibly even the month—of creation. Estimated Completion Date for Analysis: September 3, 2026.</p>
+          <p><b>Estimated Age:</b> Precise dating is still under review; the piece is currently undergoing high-resolution stratigraphic scanning and isotope analysis… Estimated Completion Date for Analysis: September 3, 2026.</p>
           <p><b>Preservation State:</b> Partial; one ear worn down to its stitching; seam loss along the right flank revealing moss stuffing; pigments faint but still discernible in low light.</p>
           <p><b>Location Found:</b> Cabin 1 attic, hidden in a floorboard cavity 4 cm below a plank gap, as though deliberately tucked away for safekeeping.</p>
           <p><b>Use and Function:</b> Child’s toy — likely cherished in both play and quiet comfort.</p>
           <p><b>Likely Purpose:</b> To represent the family’s Wirehaired Pointing Griffon, serving as a stand-in during hunts or long working days when the real companion was absent.</p>
-          <p><b>Evidence of Use:</b> Worn muzzle where countless fingers have rubbed; faded pigment on the flanks where it may have been hugged tightly; a faint scent of old smoke embedded in the hide from years near a hearth.</p>
+          <p><b>Evidence of Use:</b> Worn muzzle; faded pigment; faint scent of old smoke embedded in the hide.</p>
           <p><b>Manufacture Clues:</b> Hand-cut deerskin with uneven edges; sinew thread intact in places; pigments applied in short strokes to suggest wiry fur texture.</p>
-          <p><b>Found With:</b> Two smooth game stones, a splintered clay bead, a woven grass cord fragment, and graphite doodles of what might be a stick figure walking a dog.</p>
+          <p><b>Found With:</b> Two smooth game stones, a splintered clay bead, a woven grass cord fragment, graphite doodles of a figure walking a dog.</p>
           <p><b>Burial or Habitat Context:</b> Dry, dust-sealed cavity with minimal insect activity; insulated from temperature swings by surrounding timbers.</p>
-          <p><b>Symbolism:</b> Embodied the spirit of the family’s hunting partner — both a talisman for success and a comfort object for children awaiting safe returns.</p>
-          <p><b>Comparison:</b> Parallels found in other pre-contact and early settler-era zoomorphic toys, though the Griffon-specific detailing is rare, suggesting a personal rather than commercial origin.</p>
+          <p><b>Symbolism:</b> Embodied the spirit of the family’s hunting partner — both talisman and comfort object.</p>
+          <p><b>Comparison:</b> Parallels in other zoomorphic toys; Griffon-specific detailing suggests a personal origin.</p>
         </div>
       </div>
 
       <div class="collection-card">
-        <img src="../images/collections/huckleberrydyedwoolensockofjoy.png" alt="Huckleberry-dyed woolen sock with visible wear on a field table">
+        <img
+          src="../images/collections/huckleberrydyedwoolensockofjoy.png"
+          alt="Huckleberry-dyed woolen sock with visible wear on a field table"
+          class="open-modal"
+          data-modal-target="#modal-text-sock">
         <div class="collection-info">
           <h2>Huckleberry-Dyed Woolen Sock of Joy</h2>
           <p class="meta">Material: Hand-spun wool dyed with crushed huckleberry skins and rainwater, reinforced at toe and heel with nettle-fiber thread.</p>
           <p><b>Size/Weight/Shape:</b> Length 28 cm; width at ball 9 cm; ~110 g; tubular, foot-shaped with rounded toe.</p>
-          <p><b>Estimated Age:</b> Precise dating is still under review; the piece is currently undergoing high-resolution stratigraphic scanning and isotope analysis by a joint team of preservation scientists and chronometry specialists to narrow its origin down to the exact year—and possibly even the month—of creation. Estimated Completion Date for Analysis: February 11, 2027.</p>
-          <p><b>Preservation State:</b> Partial; heel intact, toe frayed with several large pulls; faint scent traces still detectable under controlled lab conditions.</p>
+          <p><b>Estimated Age:</b> Precise dating is still under review; analysis in progress… Estimated Completion Date: February 11, 2027.</p>
+          <p><b>Preservation State:</b> Partial; heel intact, toe frayed; faint scent traces under lab conditions.</p>
           <p><b>Location Found:</b> Hearthside debris layer, Cabin Site 2, 12–18 cm depth.</p>
           <p><b>Use and Function:</b> Clothing for human foot.</p>
-          <p><b>Likely Purpose:</b> Everyday wear, possibly winter warmth; later repurposed as canine play/trophy.</p>
-          <p><b>Evidence of Use:</b> Distorted cuff from repeated tugging; puncture holes consistent with dog teeth; faint muddy paw prints along instep.</p>
-          <p><b>Manufacture Clues:</b> Even-gauge hand knitting; huckleberry dye unevenness suggests a small-batch, natural process, with darker streaks where berry juice soaked deeper into the wool.</p>
+          <p><b>Likely Purpose:</b> Everyday wear; later repurposed as canine play/trophy.</p>
+          <p><b>Evidence of Use:</b> Distorted cuff; punctures consistent with dog teeth; faint muddy paw prints.</p>
+          <p><b>Manufacture Clues:</b> Even-gauge hand knitting; small-batch huckleberry dye with darker streaks.</p>
           <p><b>Found With:</b> Splintered stick, small river stone, broken clay cup handle.</p>
-          <p><b>Burial or Habitat Context:</b> Domestic floor collapse; charred timbers overhead; cool, low-light preservation conditions.</p>
-          <p><b>Symbolism:</b> Possibly none to human owner; to the dog, the sock’s familiar scent, softness, and shape may have been irresistible—a portable joy he could carry in his mouth, much like hunting dogs do when proudly retrieving their prize.</p>
-          <p><b>Comparison:</b> Similar in gauge and fiber to other early-settler socks found at frontier homesteads, though unique for clear evidence of canine interaction.</p>
+          <p><b>Burial or Habitat Context:</b> Domestic floor collapse; charred timbers overhead; cool, low-light preservation.</p>
+          <p><b>Symbolism:</b> Portable joy to a proud retriever.</p>
+          <p><b>Comparison:</b> Similar to other settler socks; unique for clear canine interaction.</p>
         </div>
       </div>
     </section>
 
+    <!-- ===================== Anthropology ===================== -->
     <section id="anthropology" class="collection-section" aria-label="Anthropology Collection">
       <div class="collection-card">
-        <img src="../images/collections/clusterofwiredhairedpointinggriffonpuppyteeth.png" alt="Cluster of small puppy teeth on a field table">
+        <img
+          src="../images/collections/clusterofwiredhairedpointinggriffonpuppyteeth.png"
+          alt="Cluster of small puppy teeth on a field table"
+          class="open-modal"
+          data-modal-target="#modal-text-puppy-teeth">
         <div class="collection-info">
           <h2>Cluster of Wirehaired Pointing Griffon Puppy Teeth</h2>
           <p class="meta">Material: Naturally shed deciduous canine and incisor teeth, calcium-rich enamel with faint root remnants; embedded in fine loam with traces of spruce needles.</p>
           <p><b>Size/Weight/Shape:</b> Average tooth length 0.9–1.4 cm; cluster spread ~6.2 cm; total weight ~3.4 g; irregular scatter pattern.</p>
-          <p><b>Estimated Age:</b> Precise dating is still under review; the specimen is undergoing micro-layer sediment analysis and trace-element testing in collaboration with veterinary osteologists and paleo-dentists to determine not only the year—but potentially the exact month—these teeth were shed. Estimated Completion Date for Analysis: November 8, 2026.</p>
-          <p><b>Preservation State:</b> Exceptional; enamel glossy with minimal micro-pitting; fine soil fill in root hollows; no evidence of post-depositional damage.</p>
+          <p><b>Estimated Age:</b> Dating under review; micro-layer sediment analysis and trace-element testing… Estimated Completion Date: November 8, 2026.</p>
+          <p><b>Preservation State:</b> Exceptional; enamel glossy with minimal micro-pitting; fine soil fill in root hollows.</p>
           <p><b>Location Found:</b> Edge of a sunken kennel foundation, Site K-3, 8–12 cm depth, within compacted bedding soil.</p>
-          <p><b>Use and Function:</b> Biological remains from natural tooth replacement during puppy development.</p>
-          <p><b>Likely Purpose:</b> Unintentional deposition; likely lost during play, chewing, or mouthing behavior typical of 3–6 month old pups.</p>
-          <p><b>Evidence of Use:</b> Microscopic wear striations suggest chewing on fibrous plant material and small bones; two teeth show faint crescent indentations, possibly from littermate mouthing.</p>
-          <p><b>Manufacture Clues:</b> None applicable; naturally formed biological specimens.</p>
-          <p><b>Found With:</b> Small clump of matted undercoat fur, fragment of woven reed mat, short stick worn smooth at both ends from repeated mouthing.</p>
-          <p><b>Burial or Habitat Context:</b> Low-moisture, sheltered soil beneath former kennel bedding; protected from freeze-thaw cycles, aiding preservation.</p>
-          <p><b>Symbolism:</b> To human caretakers, perhaps unnoticed at the time; to the young dog, each shed tooth marked a step toward adulthood and the promise of full hunting days ahead.</p>
-          <p><b>Comparison:</b> Comparable to modern canine deciduous tooth finds, though rarely preserved as an intact cluster in situ, making this example notable for both completeness and context.</p>
+          <p><b>Use and Function:</b> Biological remains from natural tooth replacement.</p>
+          <p><b>Likely Purpose:</b> Unintentional deposition during play and chewing typical of 3–6 month pups.</p>
+          <p><b>Evidence of Use:</b> Microscopic wear striations; two teeth with faint crescent indentations from littermate mouthing.</p>
+          <p><b>Manufacture Clues:</b> Not applicable.</p>
+          <p><b>Found With:</b> Matted undercoat fur, woven reed mat fragment, short stick worn smooth at both ends.</p>
+          <p><b>Burial or Habitat Context:</b> Low-moisture, sheltered soil beneath kennel bedding.</p>
+          <p><b>Symbolism:</b> Quiet milestones of growing up.</p>
+          <p><b>Comparison:</b> Rare to find intact clusters preserved in situ.</p>
         </div>
       </div>
 
       <div class="collection-card">
-        <img src="../images/collections/partialhumanhand.png" alt="Partial human hand bones and distal radius on a field table">
+        <img
+          src="../images/collections/partialhumanhand.png"
+          alt="Partial human hand bones and distal radius on a field table"
+          class="open-modal"
+          data-modal-target="#modal-text-hand">
         <div class="collection-info">
           <h2>Partial Human Hand and Distal Radius with Canine-Interaction Wear</h2>
           <p class="meta">Material: Human skeletal elements — partial metacarpals, proximal phalanges, and distal radius; cortical bone with preserved microstructure; trace mineral staining from surrounding soil.</p>
-          <p><b>Size/Weight/Shape:</b> Assembled length from wrist to fingertip ~21 cm; combined weight ~142 g; articulated curve suggests habitual cupped-hand posture.</p>
-          <p><b>Estimated Age:</b> Precise dating is still under review; currently undergoing combined osteometric analysis and uranium-thorium dating in collaboration with forensic anthropologists and taphonomy specialists to establish an exact year—and possibly month—of burial. Estimated Completion Date for Analysis: June 14, 2027.</p>
-          <p><b>Preservation State:</b> Partial but well-preserved; no major fragmentation; fine cracking along phalangeal shafts; faint soil concretions on articular surfaces.</p>
+          <p><b>Size/Weight/Shape:</b> Assembled length ~21 cm; combined weight ~142 g; articulated curve suggests habitual cupped-hand posture.</p>
+          <p><b>Estimated Age:</b> Dating under review; combined osteometric & U-Th analyses… Estimated Completion Date: June 14, 2027.</p>
+          <p><b>Preservation State:</b> Partial but well-preserved; fine cracking along shafts; faint soil concretions on articular surfaces.</p>
           <p><b>Location Found:</b> Beneath the east threshold stone of Cabin Site 7, 44–52 cm depth, in compact silty clay.</p>
-          <p><b>Use and Function:</b> Anatomical remains; physical evidence of habitual repetitive motion.</p>
-          <p><b>Likely Purpose:</b> Not a functional object but biological remains; micro-wear patterns suggest frequent, consistent motion aligned with repetitive stroking or patting at low elevation—consistent with canine interaction.</p>
-          <p><b>Evidence of Use:</b> Microscopic polish along radial side of metacarpals; minute osteoarthritic lipping on distal radius; compression and remodeling of tendon attachment points in ways consistent with decades of repetitive flexion-extension.</p>
-          <p><b>Manufacture Clues:</b> Naturally formed human bone; “manufacture” here interpreted as the biological shaping by decades of daily use.</p>
-          <p><b>Found With:</b> Fragment of wool garment cuff, small bronze button, sliver of leather with buckle remnant.</p>
-          <p><b>Burial or Habitat Context:</b> Protected under threshold stone; stable temperature and humidity; minimal rodent disturbance.</p>
-          <p><b>Symbolism:</b> An enduring physical record of bond between human and canine—a lifetime of strokes, scratches, and pats etched into bone.</p>
-          <p><b>Comparison:</b> While occupational stress markers are well-documented in archaeological skeletal remains (weavers’ knees, archers’ shoulders), this example appears unique in its patterning, suggesting a long-term, affectionate interaction with dogs rather than a labor-related motion.</p>
+          <p><b>Use and Function:</b> Anatomical remains; evidence of habitual motion.</p>
+          <p><b>Likely Purpose:</b> Biological remains; micro-wear patterns consistent with repetitive stroking at low elevation.</p>
+          <p><b>Evidence of Use:</b> Microscopic polish along metacarpals; minute osteoarthritic lipping on distal radius; remodeling at tendon attachments.</p>
+          <p><b>Found With:</b> Fragment of wool cuff, small bronze button, sliver of leather with buckle remnant.</p>
+          <p><b>Burial or Habitat Context:</b> Protected under threshold stone; stable temperature/humidity; minimal rodent disturbance.</p>
+          <p><b>Symbolism:</b> A lifetime of pats etched into bone.</p>
+          <p><b>Comparison:</b> Distinct from occupational stress markers; suggests affectionate interaction.</p>
         </div>
       </div>
 
-     <div class="collection-card">
-  <img src="../images/collections/femurcanisfamiliaris.png"
-       alt="Canine femur on a field table, possibly linked to Royce the Great">
-  <div class="collection-info">
-    <h2>Femur, <em>Canis familiaris</em></h2>
-    <p class="meta">Material: Cortical bone.</p>
-    <p><b>Size/Weight/Shape:</b> 19.0 cm length; ~110 g; slight anteroposterior curvature.</p>
-    <p><b>Estimated Age:</b> Precise dating is still under review; the piece is currently undergoing high-resolution stratigraphic scanning and isotope analysis by a joint team of preservation scientists and chronometry specialists to narrow its origin down to the exact year—and possibly even the month—of creation. Estimated Completion Date for Analysis: November 14, 2029.</p>
-    <p><b>Preservation State:</b> Complete; minor surface weathering; no burning.</p>
-    <p><b>Location Found:</b> Riverbank erosion face, Site E-3, nestled in a shallow alcove of silt and root, just below what clan records describe as “the last bend where Royce waited.”</p>
-    <p><b>Use and Function:</b> Anatomical remains; no evidence of modification for tool use.</p>
-    <p><b>Likely Purpose:</b> Natural skeletal element within a redeposited fluvial layer—yet its resting place, shielded by overhanging alder roots and facing downstream toward the Double Lakes, suggests it may have been placed deliberately.</p>
-    <p><b>Evidence of Use:</b> Small gnaw marks on the distal epiphysis; faint root etching along midshaft, as if the forest had begun to reclaim it.</p>
-    <p><b>Manufacture Clues:</b> Not applicable—unless you count decades of squirrel chasing, river splashing, and heroic retrieves as part of the bone’s “crafting process.” In that case, consider this femur a masterpiece of canine engineering.</p>
-    <p><b>Found With:</b> Smooth river stone bearing a single shallow groove—possibly from decades of use as a handstone in signal or game preparation; a length of plaited leather cord frayed as if once tied to something cherished; and a bronze bead of the type found in Royce-era collar fittings.</p>
-    <p><b>Burial or Habitat Context:</b> Mixed fluvial/colluvial horizon over compact sand; artifact clustering and orientation hint at intentional deposition rather than random erosion.</p>
-    <p><b>Symbolism:</b> While definitive proof remains elusive, whispers among the Double Lakes Clan say this could be a remnant of Royce himself—returned to the river that bore his reflection during countless hunts. To the uninitiated, it is simply a well-preserved canine femur; to those who know his story, it is the silent echo of a legend.</p>
-    <p><b>Comparison:</b> Morphometrics match femora of 25–30 kg Wirehaired Pointing Griffons preserved in regional collections, including the confirmed remains of Royce’s direct descendants.</p>
-  </div>
-</div>
-
-           <!-- end of your main content -->
+      <div class="collection-card">
+        <img
+          src="../images/collections/femurcanisfamiliaris.png"
+          alt="Canine femur on a field table, possibly linked to Royce the Great"
+          class="open-modal"
+          data-modal-target="#modal-text-femur">
+        <div class="collection-info">
+          <h2>Femur, <em>Canis familiaris</em></h2>
+          <p class="meta">Material: Cortical bone.</p>
+          <p><b>Size/Weight/Shape:</b> 19.0 cm length; ~110 g; slight anteroposterior curvature.</p>
+          <p><b>Estimated Age:</b> Dating under review; high-resolution scanning & isotope analysis… Estimated Completion Date: November 14, 2029.</p>
+          <p><b>Preservation State:</b> Complete; minor surface weathering; no burning.</p>
+          <p><b>Location Found:</b> Riverbank erosion face, Site E-3; shallow silt-and-root alcove below “the last bend where Royce waited.”</p>
+          <p><b>Use and Function:</b> Anatomical remains.</p>
+          <p><b>Likely Purpose:</b> Natural skeletal element; orientation suggests it may have been placed deliberately.</p>
+          <p><b>Evidence of Use:</b> Small gnaw marks on distal epiphysis; faint root etching along midshaft.</p>
+          <p><b>Found With:</b> Smooth grooved river stone; plaited leather cord; bronze bead of Royce-era collar type.</p>
+          <p><b>Burial or Habitat Context:</b> Mixed fluvial/colluvial horizon over compact sand.</p>
+          <p><b>Symbolism:</b> Possibly a remembrance at the river.</p>
+          <p><b>Comparison:</b> Morphometrics align with 25–30 kg Wirehaired Pointing Griffons.</p>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <footer class="site-footer">
-    <p>This is a fictitious website created purely for academic purposes.</p>
-    <p>All images and some content were generated with AI assistance.</p>
-  </footer>
+  <!-- ============== Modal shell (teacher pattern) ============== -->
+  <div class="modal" id="modal" style="display:none" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-content">
+      <button class="close-modal" aria-label="Close">x</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- ============== Hidden modal content blocks ============== -->
+  <!-- Whistle -->
+  <div class="modal-item" id="modal-text-whistle" hidden>
+    <h2 id="modal-title">Hand-Carved Wooden Dog Whistle</h2>
+    <p class="modal-subhead">Dating under review; report expected Apr 17, 2026) | Double Lakes bluff, Site D-2 | Western red cedar with spruce resin</p>
+    <p><strong>Material:</strong> Western red cedar body; twisted cedar-bark cord; faint traces of spruce resin</p>
+    <p><strong>Function (Observed):</strong> Acoustic signal device (working whistle)</p>
+    <p><strong>Location Found:</strong> 32–36 cm depth, silty loam dusted with reed fragments; collapsed bank layer mixed with domestic debris</p>
+    <p>This compact cedar whistle reads like a field diary written in wear. The polished mouth end marks where a handler’s lips met wood thousands of times; the two shallow tooth nicks hint at an eager retriever “helping” between casts. A glossy suspension groove shows years of swinging at a hip, ready for a quick trill that cut through wind and reed-rustle. Warmed in the hand, the faint spruce-resin scent still carries a memory of shoreline forest</p>
+    <p>Craft details point to practiced pragmatism: a hand-bored channel for bright, focused tone; a clean, slightly off-center notch that favors speed over ornament.  Comparable forms are documented in Pacific Northwest hunting kits, yet the tooth marks and specific groove wear make this piece unmistakably personal. As with all sound tools, function is inferred from form and use-wear; interpretation remains provisional until laboratory dating is complete.</p>
+  </div>
+
+  <!-- Doll -->
+  <div class="modal-item" id="modal-text-doll" hidden>
+    <h2 id="modal-title">Wirehaired Pointing Griffon Doll</h2>
+    <p class="modal-subhead">Dating under review; report expected Sep 3, 2026) | Cabin 1 attic, floorboard cavity</p>
+    <p><strong>Material:</strong> Hand-tanned deerskin panels stitched with sinew; stuffed with dried moss and shed undercoat from a real dog; eyes of polished river stones flecked with mica; detailing in natural ochre and charcoal</p>
+    <p><strong>Function (Observed):</strong> Child’s toy</p>
+    <p><strong>Location Found:</strong> Hidden 4 cm below a plank gap in a dry, dust-sealed attic cavity; insulated from temperature swings with minimal insect activity</p>
+    <p>Wear on this doll maps the places small hands returned to most: a softened, shiny muzzle;  a breath of old hearth smoke woven into the hide. The figure likely stood in for an absent working partner during long hunt days, a portable companion that kept watch from a bedside or tucked pocket. The discovery context, deliberately stowed in a protected floor gap, suggests someone hid it for safekeeping, or for the bittersweet hope of finding it again.</p>
+    <p>Craft traces show practiced, loving economy: hand-cut deerskin with uneven edges; neat sinew stitches that still hold in places; short pigment strokes to suggest wiry fur; moss peeking through a seam opened by years of use.</p>
+  </div>
+
+  <!-- Sock -->
+  <div class="modal-item" id="modal-text-sock" hidden>
+    <h2 id="modal-title">Huckleberry-Dyed Woolen Sock of Joy</h2>
+    <p class="modal-subhead">Dating under review; report expected Feb 11, 2027) | Hearthside debris layer, Cabin Site 2</p>
+    <p><strong>Material:</strong> Hand-spun wool dyed with crushed huckleberry skins and rainwater; toe and heel reinforced with nettle-fiber thread</p>
+    <p><strong>Function (Observed):</strong> Clothing (sock)</p>
+    <p><strong>Location Found:</strong> 12–18 cm depth; domestic floor collapse with charred timbers; cool, low-light preservation conditions</p>
+    <p>This sock carries two lives in one object. As clothing, it shows the steady labor of winter: heel intact from careful mending, dye mottled in berry streaks, the wool packed smooth along the instep where a foot pressed day after day. Then the story changes—its cuff is stretched from tug-of-war, the toe is frayed with wide pulls, and small punctures align like a mouthful of dog teeth</p>
+    <p>Craft notes support a small-batch, home process, even-gauge hand-knitting, natural dye that soaked deeper in darker streaks, and nettle thread where wear was expected. Parallels exist in early settler households.</p>
+  </div>
+
+  <!-- Puppy Teeth -->
+  <div class="modal-item" id="modal-text-puppy-teeth" hidden>
+    <h2 id="modal-title">Cluster of Wirehaired Pointing Griffon Puppy Teeth</h2>
+    <p class="modal-subhead">Dating under review; report expected Nov 8, 2026) | Sunken kennel foundation, Site K-3 | Deciduous canine & incisor teeth  in fine loam with spruce-needle traces</p>
+    <p><strong>Material:</strong> Deciduous canine and incisor crowns composed primarily of hydroxyapatite-rich enamel over dentine with residual root cementum; faint root remnants with soil infill; minimal taphonomic alteration (low micro-pitting).</p>
+    <p><strong>Function (Observed):</strong> Biological remains from natural tooth replacement during puppy development</p>
+    <p><strong>Location Found:</strong> 8–12 cm depth within compacted kennel bedding; low-moisture, sheltered context</p>
+    <p>A small constellation of teeth marks a brief, busy chapter of puppyhood. Glossy enamel and clean cementum margins indicate gentle in situ deposition into bedding rather than trampling or weathering. The irregular ~6.2 cm scatter matches what you’d expect near a favorite resting spot. Microscopic occlusal and labial micro-striations suggest chewing on fibrous plant material and tiny bones.</p>
+    <p>A clump of matted undercoat fur, a short stick worn smooth at both ends from repeated mouthing, and a fragment of woven reed mat likely used as kennel flooring. Comparable modern finds exist, but intact clusters preserved in situ are rare, making this example unusually informative.</p>
+  </div>
+
+  <!-- Partial Hand -->
+  <div class="modal-item" id="modal-text-hand" hidden>
+    <h2 id="modal-title">Partial Human Hand and Distal Radius</h2>
+    <p class="modal-subhead">Dating under review; report expected Jun 14, 2027) | Cabin Site 7 | Partial metacarpals, proximal phalanges, distal radius (cortical bone)</p>
+    <p><strong>Material:</strong> Human skeletal elements with preserved microstructure; trace mineral staining from surrounding soil</p>
+    <p><strong>Function (Observed):</strong> Anatomical remains</p>
+    <p><strong>Location Found:</strong> 44–52 cm depth beneath the east threshold stone of Cabin Site 7, in compact silty clay; protected, stable temperature and humidity; minimal rodent disturbance</p>
+    <p>The assembled curve of these bones suggests a familiar, cupped-hand posture. Along the radial sides of the metacarpals, microscopic polish forms a narrow, repeated track, as though skin and hair passed there countless times. On the distal radius, minute osteoarthritic lipping and subtle remodeling at tendon attachment points indicate decades of gentle flexion–extension rather than high-load labor. Taken together, the pattern fits a low-elevation, forward motion, consistent with stroking or patting a dog.</p>
+    <p>The placement under the doorway stone reads as deliberate care in a liminal spot where greeting and parting happen. While occupational stress markers are well documented in weavers, archers, and smiths, this distribution appears distinct, pointing toward affectionate, repetitive contact more than task work.</p>
+  </div>
+
+  <!-- Femur -->
+  <div class="modal-item" id="modal-text-femur" hidden>
+    <h2 id="modal-title">Femur, <em>Canis familiaris</em></h2>
+    <p class="modal-subhead">Dating under review; report expected Nov 14, 2029) | Riverbank erosion face, Site E-3 | Cortical bone</p>
+    <p><strong>Material:</strong> Cortical bone — Dense, compact outer layer of bone composed of hydroxyapatite mineral within a Type I collagen matrix; built to resist bending and torsion.</p>
+    <p><strong>Function (Observed):</strong> Anatomical remains; no evidence of modification for tool use</p>
+    <p><strong>Location Found:</strong> Nestled in a shallow silt-and-root alcove.</p>
+    <p>A single femur rests where river and forest meet, its surface lightly weathered but intact. Small gnaw marks on the distal epiphysis and faint root etching along the midshaft suggest a quiet sequence: exposure, curiosity from small scavengers, and the slow touch of encroaching roots. The bone lay shielded by overhanging alder, oriented toward the current as if set in a place of notice rather than lost by chance. Found nearby were a smooth river stone with a shallow groove, a length of plaited leather cord frayed as, and a bronze bead of the type seen on Royce-era collar fittings.</p>
+    <p>Morphometric measurements align with femora from 25–30 kg Wirehaired Pointing Griffons in regional collections, including confirmed descendants of Royce. Yet caution is essential: without completed dating and broader skeletal association, identity remains unproven. Whether redeposited by shifting banks or placed by human hands, the context suggests remembrance.</p>
+  </div>
 
   <script>
+    // toggle collections sections
     function showSection(id) {
-      // toggle sections
       document.querySelectorAll('.collection-section').forEach(sec => {
         sec.classList.toggle('active', sec.id === id);
       });
-      // toggle button highlight
       const archBtn = document.getElementById('btn-arch');
       const anthBtn = document.getElementById('btn-anth');
       if (archBtn && anthBtn) {
@@ -173,16 +266,51 @@
         anthBtn.setAttribute('aria-expanded', id === 'anthropology');
       }
     }
-
     // default view on load (supports #anthropology deep link)
     document.addEventListener('DOMContentLoaded', () => {
-      if (location.hash === '#anthropology') {
-        showSection('anthropology');
-      } else {
-        showSection('archaeology');
-      }
+      if (location.hash === '#anthropology') { showSection('anthropology'); }
+      else { showSection('archaeology'); }
     });
+
+    // ===== Modal behavior (teacher pattern) =====
+    (function(){
+      const modal      = document.getElementById('modal');
+      const modalBody  = document.getElementById('modal-body');
+      const closeBtn   = modal.querySelector('.close-modal');
+      let lastTrigger  = null;
+
+      function openFrom(selector, trigger){
+        const src = document.querySelector(selector);
+        if (!src) { console.warn('Missing modal content:', selector); return; }
+        modalBody.innerHTML = src.innerHTML;      
+        modal.style.display = 'block';
+        lastTrigger = trigger || null;
+        closeBtn.focus();
+        document.body.style.overflow = 'hidden';    
+      }
+
+      function closeModal(){
+        modal.style.display = 'none';
+        modalBody.innerHTML = '';
+        document.body.style.overflow = '';
+        if (lastTrigger) lastTrigger.focus();
+      }
+
+      
+      document.addEventListener('click', (e)=>{
+        const trigger = e.target.closest('[data-modal-target]');
+        if (trigger){
+          e.preventDefault();
+          openFrom(trigger.getAttribute('data-modal-target'), trigger);
+          return;
+        }
+        if (e.target === modal || e.target.closest('.close-modal')) closeModal();
+      });
+
+      document.addEventListener('keydown', (e)=>{
+        if (e.key === 'Escape' && modal.style.display === 'block') closeModal();
+      });
+    })();
   </script>
 </body>
 </html>
-                                             
