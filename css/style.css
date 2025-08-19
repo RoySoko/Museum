@@ -162,78 +162,44 @@ body.shop-page { background-image: none; background-color: #d4c79a; }
 .close-modal:hover{ background:#507650; }
 .collection-tip{ text-align:center; color:#5a4f3b; margin:.5rem 0 1rem; font-style:italic; }
 
-/* ============= Histories (Phase 2) ============= */
-body.collections-page.histories-active {
-  /* Update extension to .png if needed */
-  background: url('../images/collections/background.jpg') no-repeat center/cover fixed !important;
+/* =========================================================
+   HISTORIES SECTION (new wide layout, centered “bins”)
+   ========================================================= */
+.collection-section.histories{
+  background:url('../images/collections/background.jpg') center/cover fixed no-repeat;
+  padding:1.5rem 0 2.5rem;
+}
+.hist-wrap{ width:min(1200px,96vw); margin:0 auto; }
+
+.hist-card{
+  display:grid; grid-template-columns:440px 1fr; gap:24px; align-items:start;
+  margin:1.25rem auto .75rem; /* centered */
+}
+.hist-photo{
+  width:100%; height:auto; border-radius:12px;
+  border:1px solid #c8bfae; box-shadow:0 4px 12px rgba(0,0,0,.15);
 }
 
-#histories { display: none; }
-#histories.active { display: block; }
+/* Artifact Facts to the right; no box around it */
+.hist-facts{ padding:.25rem 0; background:transparent; border:none; box-shadow:none; }
+.hist-facts h2{ font-size:1.9rem; color:#3d5a3d; margin:0 0 .75rem; }
+.facts-grid{ display:grid; grid-template-columns:180px 1fr; row-gap:.55rem; column-gap:.75rem; }
+.facts-grid dt{ font-weight:700; color:#2f2e1f; }
+.facts-grid dd{ margin:0; }
 
-.history-wrap {
-  width: min(1200px, 96vw);
-  margin: 2rem auto;
-  padding: 0 1rem;
-}
+/* Text blocks under the image/facts */
+.hist-block{ width:min(1200px,96vw); margin:0 auto 2rem; }
+.hist-block h3{ color:#3d5a3d; font-size:1.35rem; margin:.75rem 0 .4rem; }
+.hist-block p{ margin:.5rem 0; line-height:1.7; }
 
-.history-card {
-  background: rgba(243,233,210,.95);
-  border: 1px solid #c8bfae;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,.12);
-  padding: 1rem 1rem 1.25rem;
-  margin-bottom: 2rem;
-}
-
-.history-head {
-  display: grid;
-  grid-template-columns: 380px 1fr;
-  gap: 1rem;
-  align-items: start;
+/* Back link color change */
+.back-collections{
+  display:inline-block; margin:1rem 0 2.25rem; color:#000; text-decoration:underline;
 }
 
-.history-image {
-  width: 100%;
-  height: auto;
-  border-radius: 12px;
-  border: 1px solid #c8bfae;
-  box-shadow: 0 3px 10px rgba(0,0,0,.15);
-}
-
-.facts {
-  background: rgba(255,255,255,0.35);
-  border: 1px solid #c8bfae;
-  border-radius: 10px;
-  padding: .85rem 1rem;
-}
-.facts .artifact-name {
-  font-style: italic;
-  color: #5a4f3b;
-  margin: -.25rem 0 .35rem 0;
-  font-size: .95rem;
-}
-.facts h3 { margin: 0 0 .5rem; font-family: Georgia, serif; color:#3d5a3d; font-size: 1.05rem; }
-.facts dl { display: grid; grid-template-columns: 140px 1fr; gap: .25rem .75rem; }
-.facts dt { font-weight: 700; color: #2f2e1f; }
-.facts dd { margin: 0; }
-
-.history-body { margin-top: 1rem; }
-.history-body h3 { margin: .75rem 0 .35rem; color: #3d5a3d; font-family: Georgia, serif; }
-.history-body p { margin: .4rem 0; }
-.history-body .note {
-  background: rgba(0,0,0,.05);
-  border-left: 4px solid #a9a88f;
-  padding: .6rem .8rem;
-  border-radius: 6px;
-  font-size: .95rem;
-  color:#2e2e2e;
-}
-.ai-note {
-  text-align:center; font-size:.95rem; color:#5a4f3b; margin: 0 0 1rem;
-  font-style: italic;
-}
-
-@media (max-width: 900px){
-  .history-head{ grid-template-columns: 1fr; }
+/* Responsive */
+@media (max-width:900px){
+  .hist-card{ grid-template-columns:1fr; }
+  .facts-grid{ grid-template-columns:1fr; }
+  .hist-photo{ max-width:700px; margin:0 auto; }
 }
