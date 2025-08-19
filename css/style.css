@@ -27,7 +27,7 @@ nav.main-nav button:hover { background: #a1683a; }
 
 .container { width: 100%; max-width: 1200px; margin: 0 auto; }
 
-/* ============= Home / General Cards ============= */
+/* ============= Home  ============= */
 .intro-box {
   background: rgba(243, 233, 210, 0.85);
   padding: 2rem; border-radius: 8px; min-height: 150px;
@@ -92,7 +92,7 @@ body.staff-page footer.site-footer { background-color: #3d5a3d; color: #eae6dc; 
   .staff-card img { border-right: none !important; border-bottom: 1px solid #c8bfae; }
 }
 
-/* ============= Collections (Phase 1 list) ============= */
+/* ============= Collections  ============= */
 body.collections-page { background-image: none !important; background-color: #d4c79a !important; }
 
 .collection-container { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
@@ -142,7 +142,7 @@ body.shop-page { background-image: none; background-color: #d4c79a; }
 .btn-add:hover { background: #a1683a; }
 .sr-only { position: absolute !important; height: 1px; width: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px); }
 
-/* ============= Modal (Phase 1) ============= */
+/* ============= Modal  ============= */
 .modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,.72); z-index: 9999; }
 .modal-content{
   width: min(900px, 92vw); margin: 6vh auto; background: rgba(243,233,210,.95);
@@ -163,17 +163,17 @@ body.shop-page { background-image: none; background-color: #d4c79a; }
 .collection-tip{ text-align:center; color:#5a4f3b; margin:.5rem 0 1rem; font-style:italic; }
 
 /* =========================================================
-   HISTORIES SECTION (one-box per artifact)
+   HISTORIES SECTION
    ========================================================= */
 .collection-section.histories{
   background:url('../images/collections/background.jpg') center/cover fixed no-repeat;
   padding: 1.75rem 0 2.75rem;
 }
 
-/* overall width for histories content */
+/* overall width for histories  */
 .hist-wrap{ width:min(1280px, 96vw); margin:0 auto; }
 
-/* === The ONE BIN for each artifact === */
+/* === BIN for each artifact === */
 .history-bin{
   background: rgba(243,233,210,.95);
   border: 1px solid #c8bfae;
@@ -183,9 +183,9 @@ body.shop-page { background-image: none; background-color: #d4c79a; }
   margin: 0 auto 2rem;
 }
 
-/* full-width green heading band INSIDE the same bin */
+/* full-width green heading  */
 .history-bin .hist-head{
-  margin: -1.25rem -1.5rem 1rem;     /* stretch to bin edges */
+  margin: -1.25rem -1.5rem 1rem;     
   padding: .7rem 1rem;
   background: #3d5a3d;
   color: #fff;
@@ -200,7 +200,7 @@ body.shop-page { background-image: none; background-color: #d4c79a; }
   margin: 0;
 }
 
-/* grid for photo + facts (still inside the SAME bin) */
+/* grid for photo */
 .hist-card{
   display:grid;
   grid-template-columns: 480px 1fr;
@@ -218,7 +218,7 @@ body.shop-page { background-image: none; background-color: #d4c79a; }
   box-shadow:0 4px 12px rgba(0,0,0,.15);
 }
 
-/* facts block (to the right of photo) */
+
 .hist-facts{
   background: transparent !important; border: 0 !important; box-shadow: none !important; padding: 0;
 }
@@ -228,12 +228,12 @@ body.shop-page { background-image: none; background-color: #d4c79a; }
   display:grid;
   grid-template-columns: 200px 1fr;
   column-gap: .75rem;
-  row-gap: calc(2 * 1em * 1.6); /* double spacing between rows */
+  row-gap: calc(2 * 1em * 1.6); 
 }
 .facts-grid dt{ font-weight:700; color:#2f2e1f; }
 .facts-grid dd{ margin:0; line-height:1.6; }
 
-/* narrative sections BELOW the photo+facts, but still inside the SAME bin */
+
 .history-section{
   background: transparent !important;
   border: 0 !important;
@@ -248,7 +248,7 @@ body.shop-page { background-image: none; background-color: #d4c79a; }
 .history-section h3{ color:#3d5a3d; font-size:1.35rem; margin:.25rem 0 .65rem; }
 .history-section p{ margin:.5rem 0; line-height:1.7; }
 
-/* highlighted caution note inside the same bin */
+/* highlighted caution note */
 .caution-box{
   background: #fff8e6;
   border: 1px solid #e6d5a4;
@@ -258,7 +258,7 @@ body.shop-page { background-image: none; background-color: #d4c79a; }
   margin: 1rem 0;
 }
 
-/* back link (black) */
+/* back link  */
 .back-collections{
   display:inline-block;
   margin:1rem 0 2.25rem;
@@ -266,7 +266,7 @@ body.shop-page { background-image: none; background-color: #d4c79a; }
   text-decoration:underline;
 }
 
-/* responsive */
+
 @media (max-width: 980px){
   .hist-card{ grid-template-columns: 1fr; }
   .facts-grid{ grid-template-columns: 1fr; }
@@ -303,7 +303,7 @@ body.shop-page { background-image: none; background-color: #d4c79a; }
     .note{ color:#555; font-size:.9rem; margin:.25rem 0 0; }
   </style>
  <style>
-    /* Basic shop layout */
+    /* shop layout */
     .shop-wrap { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; }
     .shop-grid { display: flex; flex-wrap: wrap; gap: 20px; }
 
@@ -346,7 +346,7 @@ body.shop-page { background-image: none; background-color: #d4c79a; }
     }
     .souvenir-item button:hover { background: #a1683a; }
 
-    /* Pretty tooltips driven by data-tip (also leaves native title intact) */
+    
     .souvenir-item[data-tip]::after {
       content: attr(data-tip);
       position: absolute;
