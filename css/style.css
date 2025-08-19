@@ -203,3 +203,14 @@ body.shop-page { background-image: none; background-color: #d4c79a; }
   .facts-grid{ grid-template-columns:1fr; }
   .hist-photo{ max-width:700px; margin:0 auto; }
 }
+/* === Double spacing ONLY for the 3 lines inside Artifact Facts === */
+.facts-grid dt,
+.facts-grid dd {
+  line-height: 1.6;       /* keep your current text rhythm */
+  margin: 0;
+}
+
+/* put ~two line spaces between each row (ID, Title, Material) */
+.facts-grid {
+  row-gap: calc(2 * 1em * 1.6);  /* ≈ double spacing between rows */
+}
