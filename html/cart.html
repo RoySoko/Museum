@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart – The Museum of Royce the Great</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .cart-wrap{ max-width: 1100px; margin: 2rem auto; padding: 0 1rem; }
+    .cart-title{ text-align:center; color:#3d5a3d; font: 700 1.6rem Georgia, serif; margin-bottom:.75rem; }
+
+    .cart-bar{ display:flex; gap:.5rem; justify-content:center; margin-bottom:1rem; }
+    .cart-bar button{ background:#8b5e34; color:#fff; border:0; padding:.45rem .8rem; border-radius:6px; cursor:pointer; }
+    .cart-bar button:hover{ background:#a1683a; }
+
+    table.cart { width:100%; border-collapse:collapse; margin: .5rem 0 1rem; background: rgba(243,233,210,.95);
+                 border:1px solid #c8bfae; }
+    .cart th, .cart td{ padding:.6rem .5rem; border:1px solid #c8bfae; vertical-align:middle; }
+    .cart th{ text-align:left; background:#eee4cc; }
+    .cart .thumb{ width:64px; height:48px; object-fit:cover; border-radius:6px; display:block; }
+    .cart .amt{ text-align:right; font-variant-numeric: tabular-nums; white-space:nowrap; }
+    .cart .rmv{ background:#c94f4f; color:#fff; border:0; padding:.35rem .55rem; border-radius:6px; cursor:pointer; }
+    .cart .rmv:hover{ background:#d76666; }
+
+    .summary{ display:grid; grid-template-columns: 1fr 240px; gap:.75rem; align-items:start; }
+    .summary-box{
+      background: rgba(243,233,210,.95);
+      border:1px solid #c8bfae; border-radius:10px;
+      padding:1rem; box-shadow: 0 2px 6px rgba(0,0,0,.08);
+    }
+    .summary-box table{ width:100%; border-collapse:collapse; }
+    .summary-box td{ padding:.25rem 0; }
+    .summary-box td:last-child{ text-align:right; font-variant-numeric: tabular-nums; white-space:nowrap; }
+
+    .actions{ margin-top:.75rem; display:flex; gap:.75rem; }
+    .clear{ background:#3d5a3d; color:#fff; border:0; padding:.45rem .7rem; border-radius:6px; cursor:pointer; }
+    .clear:hover{ background:#4f7350; }
+    .keep{ color:#0a0a0a; text-decoration:underline; background:none; border:0; cursor:pointer; padding:0; }
+
+    .member{ margin:.5rem 0 1rem; }
+  </style>
+</head>
+<body class="collections-page">
+  <header class="site-header">
+    <h1>The Museum of Royce the Great, Wirehaired Wonder</h1>
+    <nav class="main-nav">
+      <button onclick="location.href='../index.html'">Home</button>
+      <button onclick="location.href='staff.html'">Staff</button>
+      <button onclick="location.href='collections.html'">Collections</button>
+      <button onclick="location.href='shop.html'">Shop</button>
+    </nav>
+  </header>
+
+  <main class="cart-wrap">
+    <h2 class="cart-title">Shopping Cart</h2>
+
+    <div class="member">
+      <label>
+        <input type="checkbox" id="memberChk"> Member Discount (15%)
+      </label>
+    </div>
+
+    <table class="cart" id="cartTable" aria-describedby="summary">
+      <thead>
+        <tr>
+          <th style="width:90px;">Item</th>
+          <th>Name</th>
+          <th style="width:70px;">Qty</th>
+          <th style="width:120px;">Unit Price</th>
+          <th style="width:140px;">Line Total</th>
+          <th style="width:120px;">Remove</th>
+        </tr>
+      </thead>
+      <tbody id="cartRows">
+        <!-- rows injected by render() -->
+      </tbody>
+    </table>
+
+    <div class="summary" id="summary">
+      <div class="actions">
+        <button class="clear" id="clearBtn">Clear Cart</button>
+        <button class="keep" id="keepBtn" onclick="location.href='shop.html'">Keep Shopping</button>
+      </div>
+
+      <div class="summary-box" aria-live="polite">
+        <table>
+          <tbody id="summaryRows">
+            <!-- amounts injected by render() -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>This is a fictitious website created purely for academic purposes.</p>
+    <p>The content in this shop was entirely created by AI under human direction and then curated, reviewed, and edited by a human before being published.</p>
+  </footer>
+
+  <script src="../js/placeholder.js"></script>
+  <script>
+    // ================= CONSTANTS =================
+    const TAX_RATE = 0.102;                 // 10.2%
+    const MEMBER_DISCOUNT_RATE = 0.15;      // 15%
+    const SHIPPING_RATE = 25.00;            // flat
+    const VOLUME_DISCOUNT_TIERS = [         // based on ItemTotal
+      { min: 0,    max: 49.99, rate: 0.00 },
+      { min: 50,   max: 99.99, rate: 0.05 },
+      { min: 100,  max: 199.99,rate: 0.10 },
+      { min: 200,  max: Infinity, rate: 0.15 }
+    ];
+
+    // ================ UTILITIES =================
+    const $ = sel => document.querySelector(sel);
+
+    function fmtCurrency(n){
+      const neg = n < 0;
+      const abs = Math.abs(n);
+      const s = '$' + abs.toFixed(2);
+      return neg ? '(' + s + ')' : s;
+    }
+
+    function volumeRateFor(total){
+      const tier = VOLUME_DISCOUNT_TIERS.find(t => total >= t.min && total <= t.max);
+      return tier ? tier.rate : 0;
+    }
+
+    // ================ RENDER ====================
+    function render(){
+      let cart = readCart();
+      const rows = $('#cartRows');
+      rows.innerHTML = '';
+
+      // empty cart UX
+      if (cart.length === 0){
+        rows.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:1rem;">
+          Your cart is empty.
+        </td></tr>`;
+      } else {
+        // build item rows
+        cart.forEach(item=>{
+          const lineTotal = item.unitPrice * item.qty;
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td><img class="thumb" src="${item.image}" alt=""></td>
+            <td>${item.name}</td>
+            <td class="amt">${item.qty}</td>
+            <td class="amt">${fmtCurrency(item.unitPrice)}</td>
+            <td class="amt">${fmtCurrency(lineTotal)}</td>
+            <td><button class="rmv" data-id="${item.id}">Remove</button></td>
+          `;
+          rows.appendChild(tr);
+        });
+      }
+
+      // === SUMMARY MATH (unrounded internal) ===
+      const itemTotal = cart.reduce((s,it)=> s + it.unitPrice * it.qty, 0);
+
+      const memberChecked = $('#memberChk').checked;
+      const volumeRate = volumeRateFor(itemTotal);
+      const volumeDiscount = itemTotal * volumeRate;
+      const memberDiscount = memberChecked ? itemTotal * MEMBER_DISCOUNT_RATE : 0;
+
+      // One-discount rule
+      let appliedMember = false, appliedVolume = false, discount = 0;
+
+      if (memberDiscount > 0 && volumeDiscount > 0){
+        // both could apply -> ask which one to use (teacher requirement)
+        const useMember = window.confirm(
+          'Both a Volume Discount and a Member Discount are available.\n' +
+          'Click "OK" to use the Member Discount (15%), or "Cancel" to use the Volume Discount.'
+        );
+        if (useMember){
+          appliedMember = true; discount = memberDiscount;
+        } else {
+          appliedVolume = true; discount = volumeDiscount;
+        }
+      } else if (memberDiscount > 0){
+        appliedMember = true; discount = memberDiscount;
+      } else if (volumeDiscount > 0){
+        appliedVolume = true; discount = volumeDiscount;
+      }
+
+      const shipping = cart.length === 0 ? 0 : SHIPPING_RATE;
+      const taxableSub = itemTotal - discount + shipping;
+      const taxAmt = taxableSub * TAX_RATE;
+      const invoiceTotal = taxableSub + taxAmt;
+
+      // === SUMMARY OUTPUT ===
+      const srows = $('#summaryRows');
+      srows.innerHTML = `
+        <tr><td>Subtotal of Items</td><td>${fmtCurrency(itemTotal)}</td></tr>
+        <tr><td>Volume Discount</td><td>${fmtCurrency(appliedVolume ? -discount : 0)}</td></tr>
+        <tr><td>Member Discount</td><td>${fmtCurrency(appliedMember ? -discount : 0)}</td></tr>
+        <tr><td>Shipping</td><td>${fmtCurrency(shipping)}</td></tr>
+        <tr><td><strong>Subtotal (Taxable amount)</strong></td><td><strong>${fmtCurrency(taxableSub)}</strong></td></tr>
+        <tr><td>Tax Rate</td><td>${(TAX_RATE*100).toFixed(2)}%</td></tr>
+        <tr><td>Tax Amount</td><td>${fmtCurrency(taxAmt)}</td></tr>
+        <tr><td><strong>Invoice Total</strong></td><td><strong>${fmtCurrency(invoiceTotal)}</strong></td></tr>
+      `;
+
+      // wire remove buttons each render
+      rows.querySelectorAll('.rmv').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          const id = btn.getAttribute('data-id');
+          cart = readCart().filter(it => it.id !== id);
+          writeCart(cart);
+          render();
+        });
+      });
+    }
+
+    // ============ EVENTS & INIT ============
+    document.addEventListener('DOMContentLoaded', ()=>{
+      // restore member checkbox
+      const savedMember = localStorage.getItem(MEMBER_KEY);
+      if (savedMember === 'true') $('#memberChk').checked = true;
+
+      $('#memberChk').addEventListener('change', e=>{
+        localStorage.setItem(MEMBER_KEY, e.target.checked ? 'true' : 'false');
+        render();
+      });
+
+      $('#clearBtn').addEventListener('click', ()=>{
+        writeCart([]);
+        render();
+      });
+
+      render();
+    });
+  </script>
+</body>
+</html>
