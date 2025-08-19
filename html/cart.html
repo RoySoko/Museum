@@ -94,12 +94,13 @@
   </footer>
 
   <script>
-    /* Single render() (no other functions) — handles reading/writing cart, building rows, and math */
+    /* Single render() (no other functions) — reads array cart from CART_KEY, builds rows, and does the math */
     function render(){
-      // ---- constants ----
-      var TAX_RATE = 0.102;      // 10.2%
-      var MEMBER_RATE = 0.15;    // 15%
-      var SHIPPING_FLAT = 25.00; // flat if cart not empty
+      // =================== CONSTANTS + KEY ===================
+      var CART_KEY = 'museumCartV1'; // <-- matches shop page
+      var TAX_RATE = 0.102;          // 10.2%
+      var MEMBER_RATE = 0.15;        // 15%
+      var SHIPPING_FLAT = 25.00;     // flat if cart not empty
       var TIERS = [
         { min: 0,    max: 49.99,  rate: 0.00 },
         { min: 50,   max: 99.99,  rate: 0.05 },
@@ -107,86 +108,87 @@
         { min: 200,  max: 1e12,   rate: 0.15 }
       ];
 
-      // ---- read cart + member from storage ----
-      var cartObj = {};
-      try { cartObj = JSON.parse(localStorage.getItem('cart') || '{}'); } catch(e){ cartObj = {}; }
+      // =================== READ CART (ARRAY) ===================
+      var cart = [];
+      try { cart = JSON.parse(localStorage.getItem(CART_KEY) || '[]'); } catch(e){ cart = []; }
+
+      // drop invalid entries (qty <= 0 or unitPrice <= 0) per edge-case rule
+      var cleaned = [];
+      for (var ci=0; ci<cart.length; ci++){
+        var it = cart[ci];
+        if (!it) continue;
+        var q = Number(it.qty)||0, p = Number(it.unitPrice)||0;
+        if (q > 0 && p > 0){
+          cleaned.push({ id: it.id, name: it.name, unitPrice: p, qty: q, image: it.image });
+        }
+      }
+      // apply inline commands (clear/remove) without making helper functions
+      if (window.__clearCart){ cleaned = []; window.__clearCart = 0; }
+      if (window.__removeId){
+        var rid = window.__removeId;
+        var kept = [];
+        for (var ri=0; ri<cleaned.length; ri++){
+          if (cleaned[ri].id !== rid) kept.push(cleaned[ri]);
+        }
+        cleaned = kept;
+        window.__removeId = '';
+      }
+      // persist any cleanup/changes
+      try { localStorage.setItem(CART_KEY, JSON.stringify(cleaned)); } catch(e){}
+      cart = cleaned;
+
+      // =================== MEMBER CHECKBOX STATE ===================
       var member = false;
       try { member = (localStorage.getItem('member') === 'true'); } catch(e){ member = false; }
-
-      // apply UI checkbox (if present)
       var memberChk = document.getElementById('memberChk');
       if (memberChk){
-        if (memberChk.checked !== member){ memberChk.checked = member; }
-        // persist any new state from checkbox (onchange also calls render, but this keeps it single-source)
-        member = memberChk.checked ? true : false;
+        if (memberChk.checked !== member) memberChk.checked = member;
+        member = memberChk.checked ? true : false; // reflect UI
         try { localStorage.setItem('member', member ? 'true' : 'false'); } catch(e){}
       }
 
-      // ---- handle inline commands (clear / remove) ----
-      if (window.__clearCart){
-        cartObj = {};
-        try { localStorage.setItem('cart', JSON.stringify(cartObj)); } catch(e){}
-        window.__clearCart = 0;
-      }
-      if (window.__removeId){
-        var rid = window.__removeId;
-        if (cartObj[rid]) { delete cartObj[rid]; }
-        try { localStorage.setItem('cart', JSON.stringify(cartObj)); } catch(e){}
-        window.__removeId = '';
-      }
-
-      // ---- table rows ----
+      // =================== BUILD TABLE ROWS ===================
       var rowsEl = document.getElementById('cartRows');
       if (rowsEl){
-        // build table
-        var keys = [];
-        for (var k in cartObj){ if (Object.prototype.hasOwnProperty.call(cartObj,k)) keys.push(k); }
-
-        if (keys.length === 0){
+        if (cart.length === 0){
           rowsEl.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:1rem;">Your cart is empty.</td></tr>';
         } else {
           var html = '';
-          for (var i=0; i<keys.length; i++){
-            var it = cartObj[keys[i]];
-            var lineTotal = (it.unitPrice||0) * (it.qty||0);
-            // currency format inline
-            var sUnit = '$' + Math.abs((it.unitPrice||0)).toFixed(2);
+          for (var i=0; i<cart.length; i++){
+            var it2 = cart[i];
+            var lineTotal = (it2.unitPrice||0) * (it2.qty||0);
+            var sUnit = '$' + Math.abs((it2.unitPrice||0)).toFixed(2);
             var sLine = '$' + Math.abs(lineTotal).toFixed(2);
             html += ''
               + '<tr>'
-              +   '<td><img class="thumb" src="'+(it.image||'')+'" alt=""></td>'
-              +   '<td>'+(it.name||'')+'</td>'
-              +   '<td class="amt">'+(it.qty||0)+'</td>'
+              +   '<td><img class="thumb" src="'+(it2.image||'')+'" alt=""></td>'
+              +   '<td>'+(it2.name||'')+'</td>'
+              +   '<td class="amt">'+(it2.qty||0)+'</td>'
               +   '<td class="amt">'+sUnit+'</td>'
               +   '<td class="amt">'+sLine+'</td>'
-              +   '<td><button class="rmv" onclick="window.__removeId=\''+(it.id||'')+'\'; render();">Remove</button></td>'
+              +   '<td><button class="rmv" onclick="window.__removeId=\''+(it2.id||'')+'\'; render();">Remove</button></td>'
               + '</tr>';
           }
           rowsEl.innerHTML = html;
         }
       }
 
-      // ---- summary math ----
+      // =================== SUMMARY MATH (UNROUNDED) ===================
       var itemTotal = 0;
-      var anyItems = false;
-      for (var k2 in cartObj){
-        if (Object.prototype.hasOwnProperty.call(cartObj,k2)){
-          var it2 = cartObj[k2];
-          itemTotal += (it2.unitPrice||0) * (it2.qty||0);
-          anyItems = true;
-        }
+      for (var k=0; k<cart.length; k++){
+        itemTotal += (Number(cart[k].unitPrice)||0) * (Number(cart[k].qty)||0);
       }
 
-      // volume rate lookup (procedural)
+      // tier rate
       var volumeRate = 0;
-      for (var j=0; j<TIERS.length; j++){
-        var t = TIERS[j];
-        if (itemTotal >= t.min && itemTotal <= t.max){ volumeRate = t.rate; break; }
+      for (var t=0; t<TIERS.length; t++){
+        var tier = TIERS[t];
+        if (itemTotal >= tier.min && itemTotal <= tier.max){ volumeRate = tier.rate; break; }
       }
       var volumeDiscount = itemTotal * volumeRate;
       var memberDiscount  = member ? itemTotal * MEMBER_RATE : 0;
 
-      // choose one discount
+      // one-discount rule
       var appliedMember = false, appliedVolume = false, discount = 0;
       if (memberDiscount > 0 && volumeDiscount > 0){
         var useMember = window.confirm('Both a Volume Discount and a Member Discount are available.\nClick "OK" to use the Member Discount (15%), or "Cancel" to use the Volume Discount.');
@@ -198,22 +200,22 @@
         appliedVolume = true; discount = volumeDiscount;
       }
 
-      var shipping = anyItems ? SHIPPING_FLAT : 0;
+      var shipping = cart.length > 0 ? SHIPPING_FLAT : 0;
       var taxableSub = itemTotal - discount + shipping;
       var taxAmt = taxableSub * TAX_RATE;
       var invoiceTotal = taxableSub + taxAmt;
 
-      // currency strings
+      // =================== FORMATTED STRINGS (PARENTHESES FOR NEGATIVES) ===================
       var sItem = '$' + Math.abs(itemTotal).toFixed(2);
-      var sVol  = '$' + Math.abs(appliedVolume ? -discount : 0).toFixed(2);
-      var sMem  = '$' + Math.abs(appliedMember ? -discount : 0).toFixed(2);
+      var sVol  = appliedVolume ? '(' + '$' + (discount).toFixed(2) + ')' : '$0.00';
+      var sMem  = appliedMember ? '(' + '$' + (discount).toFixed(2) + ')' : '$0.00';
       var sShip = '$' + Math.abs(shipping).toFixed(2);
       var sTaxb = '$' + Math.abs(taxableSub).toFixed(2);
       var sTaxR = (TAX_RATE*100).toFixed(2) + '%';
       var sTaxA = '$' + Math.abs(taxAmt).toFixed(2);
       var sInv  = '$' + Math.abs(invoiceTotal).toFixed(2);
 
-      // ---- summary output ----
+      // =================== SUMMARY OUTPUT ===================
       var srows = document.getElementById('summaryRows');
       if (srows){
         srows.innerHTML = ''
@@ -227,8 +229,8 @@
           + '<tr><td><strong>Invoice Total</strong></td><td><strong>'+sInv+'</strong></td></tr>';
       }
 
-      // ---- persist cart (if changed earlier) ----
-      try { localStorage.setItem('cart', JSON.stringify(cartObj)); } catch(e){}
+      // =================== PERSIST (ALREADY DONE) ===================
+      try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch(e){}
     }
   </script>
   <script>render();</script>
