@@ -134,107 +134,86 @@ const ANTH_DATA = [
 let archIndex = 0;
 let anthIndex = 0;
 
-// render helpers
-function renderItem(section, item) {
-  const prefix = section === 'archaeology' ? 'arch' : 'anth';
+/*
+ Souvenir Shop Checkout — single-function implementation
+ Assumes:
+ - Each line item row has [data-item] and a unit price on data-price, e.g. data-price="12.99"
+ - A quantity input lives in the row (input[type="number"] or input.qty or .qty)
+ - A line total element in the row: [data-line-total] or .line-total or .total
+ - Summary fields: #itemCount, #subtotal, #tax, #total
+ - Optional tax: #taxRate or [data-tax-rate] (accepts "10.1" or "0.101")
+ - Optional shipping: #shipping or [data-shipping]
+*/
+function render() {
+  var rows = document.querySelectorAll('[data-item]');
+  var subtotal = 0;
+  var itemCount = 0;
 
-  document.getElementById(`${prefix}-image`).src = item.image;
-  document.getElementById(`${prefix}-image`).alt = item.alt;
+  for (var i = 0; i < rows.length; i++) {
+    var row = rows[i];
 
-  document.getElementById(`${prefix}-name`).textContent = item.name;
-  document.getElementById(`${prefix}-material`).textContent = item.material;
-  document.getElementById(`${prefix}-size`).textContent = item.size;
-  document.getElementById(`${prefix}-age`).textContent = item.age;
-  document.getElementById(`${prefix}-pres`).textContent = item.pres;
-  document.getElementById(`${prefix}-loc`).textContent = item.loc;
-  document.getElementById(`${prefix}-use`).textContent = item.use;
-  document.getElementById(`${prefix}-purpose`).textContent = item.purpose;
-  document.getElementById(`${prefix}-evidence`).textContent = item.evidence;
-  document.getElementById(`${prefix}-manu`).textContent = item.manu;
-  document.getElementById(`${prefix}-foundwith`).textContent = item.foundwith;
-  document.getElementById(`${prefix}-context`).textContent = item.context;
-  document.getElementById(`${prefix}-symbol`).textContent = item.symbol;
-  document.getElementById(`${prefix}-comp`).textContent = item.comp;
-}
+    // unit price
+    var priceRaw = row.getAttribute('data-price');
+    var price = parseFloat((priceRaw || '0').toString().replace(/[^\d.\-]/g, ''));
+    if (isNaN(price)) price = 0;
 
-// init both sections
-function initCollections() {
-  renderItem('archaeology', ARCH_DATA[archIndex]);
-  renderItem('anthropology', ANTH_DATA[anthIndex]);
-}
+    // quantity
+    var qtyInput = row.querySelector('input[type="number"]') || row.querySelector('input.qty') || row.querySelector('.qty');
+    var qty = 0;
+    if (qtyInput) {
+      var qtyRaw = (qtyInput.value || qtyInput.textContent || '0').toString().replace(/[^\d.\-]/g, '');
+      qty = parseFloat(qtyRaw);
+      if (isNaN(qty)) qty = 0;
+    }
 
-// arrows
-function nextItem(section) {
-  if (section === 'archaeology') {
-    archIndex = (archIndex + 1) % ARCH_DATA.length;
-    renderItem('archaeology', ARCH_DATA[archIndex]);
-  } else {
-    anthIndex = (anthIndex + 1) % ANTH_DATA.length;
-    renderItem('anthropology', ANTH_DATA[anthIndex]);
-  }
-}
+    // line total
+    var lineTotal = price * qty;
+    subtotal += lineTotal;
+    itemCount += qty;
 
-function prevItem(section) {
-  if (section === 'archaeology') {
-    archIndex = (archIndex - 1 + ARCH_DATA.length) % ARCH_DATA.length;
-    renderItem('archaeology', ARCH_DATA[archIndex]);
-  } else {
-    anthIndex = (anthIndex - 1 + ANTH_DATA.length) % ANTH_DATA.length;
-    renderItem('anthropology', ANTH_DATA[anthIndex]);
-  }
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  initCollections();
-});
-// ===== Shared Cart Storage (teacher pattern) =====
-const CART_KEY = 'museumCartV1';
-const MEMBER_KEY = 'museumMemberV1'; // remember checkbox state on cart page
-
-function readCart() {
-  try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
-  catch { return []; }
-}
-function writeCart(cart) {
-  localStorage.setItem(CART_KEY, JSON.stringify(cart));
-}
-
-// ===== Shop page: addToCart(this) delegate =====
-window.addToCartFromShop = function(btn){
-  const id        = btn.dataset.id;
-  const name      = btn.dataset.name;
-  const unitPrice = Number(btn.dataset.price);
-  const image     = btn.dataset.image;
-
-  let cart = readCart();
-  const idx = cart.findIndex(it => it.id === id);
-  if (idx >= 0) {
-    cart[idx].qty += 1;
-  } else {
-    cart.push({ id, name, unitPrice, qty: 1, image });
-  }
-  writeCart(cart);
-
-  // Update the item card's qty badge
-  const card = btn.closest('.souvenir-item');
-  if (card) {
-    const badge = card.querySelector('.qty-badge');
-    if (badge) {
-      const item = cart.find(it => it.id === id);
-      badge.textContent = item ? `Qty: ${item.qty}` : '';
+    var lineEl = row.querySelector('[data-line-total]') || row.querySelector('.line-total') || row.querySelector('.total');
+    if (lineEl) {
+      lineEl.textContent = '$' + lineTotal.toFixed(2);
     }
   }
-};
 
-// Hydrate all qty badges on load
-document.addEventListener('DOMContentLoaded', ()=>{
-  const cart = readCart();
-  document.querySelectorAll('.souvenir-item').forEach(card=>{
-    const id = card.getAttribute('data-id');
-    const badge = card.querySelector('.qty-badge');
-    if (!badge) return;
-    const it = cart.find(x => x.id === id);
-    badge.textContent = it ? `Qty: ${it.qty}` : '';
-  });
-});
+  // tax rate
+  var taxRate = 0;
+  var trEl = document.getElementById('taxRate') || document.querySelector('[data-tax-rate]');
+  if (trEl) {
+    var trRaw = (trEl.value || trEl.textContent || trEl.getAttribute('data-tax-rate') || '0').toString().replace(/[^\d.\-]/g, '');
+    var trNum = parseFloat(trRaw);
+    if (!isNaN(trNum)) {
+      taxRate = trNum > 1 ? trNum / 100 : trNum; // allow "10.1" or "0.101"
+    }
+  }
 
+  // shipping
+  var shipping = 0;
+  var shEl = document.getElementById('shipping') || document.querySelector('[data-shipping]');
+  if (shEl) {
+    var shRaw = (shEl.value || shEl.textContent || shEl.getAttribute('data-shipping') || '0').toString().replace(/[^\d.\-]/g, '');
+    var shNum = parseFloat(shRaw);
+    if (!isNaN(shNum)) shipping = shNum;
+  }
+
+  var tax = subtotal * taxRate;
+  var total = subtotal + tax + shipping;
+
+  // outputs
+  var itemsOut = document.getElementById('itemCount') || document.querySelector('[data-item-count]');
+  if (itemsOut) itemsOut.textContent = itemCount;
+
+  var subOut = document.getElementById('subtotal') || document.querySelector('[data-subtotal]');
+  if (subOut) subOut.textContent = '$' + subtotal.toFixed(2);
+
+  var taxOut = document.getElementById('tax') || document.querySelector('[data-tax]');
+  if (taxOut) taxOut.textContent = '$' + tax.toFixed(2);
+
+  var totOut = document.getElementById('total') || document.querySelector('[data-total]');
+  if (totOut) totOut.textContent = '$' + total.toFixed(2);
+
+  var taxPctOut = document.getElementById('taxPct') || document.querySelector('[data-tax-pct]');
+  if (taxPctOut) taxPctOut.textContent = (taxRate * 100).toFixed(1) + '%';
+}
+// End: only one function declared (render)
