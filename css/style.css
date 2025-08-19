@@ -163,31 +163,51 @@ body.shop-page { background-image: none; background-color: #d4c79a; }
 .collection-tip{ text-align:center; color:#5a4f3b; margin:.5rem 0 1rem; font-style:italic; }
 
 /* =========================================================
-   HISTORIES SECTION (wide layout + boxed cards)
+   HISTORIES SECTION (one-box per artifact)
    ========================================================= */
 .collection-section.histories{
   background:url('../images/collections/background.jpg') center/cover fixed no-repeat;
   padding: 1.75rem 0 2.75rem;
 }
 
-/* container width */
+/* overall width for histories content */
 .hist-wrap{ width:min(1280px, 96vw); margin:0 auto; }
 
-/* ── TOP CARD: photo + facts in one box ─────────────────── */
+/* === The ONE BIN for each artifact === */
+.history-bin{
+  background: rgba(243,233,210,.95);
+  border: 1px solid #c8bfae;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.08);
+  padding: 1.25rem 1.5rem;
+  margin: 0 auto 2rem;
+}
+
+/* full-width green heading band INSIDE the same bin */
+.history-bin .hist-head{
+  margin: -1.25rem -1.5rem 1rem;     /* stretch to bin edges */
+  padding: .7rem 1rem;
+  background: #3d5a3d;
+  color: #fff;
+  border-radius: 12px 12px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.history-bin .hist-head h2{
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+/* grid for photo + facts (still inside the SAME bin) */
 .hist-card{
   display:grid;
   grid-template-columns: 480px 1fr;
   gap: 28px;
   align-items:start;
-
-  /* the “bin/box” */
-  background: rgba(243,233,210,.95);
-  border: 1px solid #c8bfae;
-  border-radius: 12px;
-  padding: 1.25rem 1.5rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,.08);
-
-  margin: 1.25rem auto 1.25rem;
+  margin: 0 0 1rem;
+  background: transparent !important; border: 0 !important; box-shadow: none !important; padding: 0;
 }
 
 .hist-photo{
@@ -198,37 +218,47 @@ body.shop-page { background-image: none; background-color: #d4c79a; }
   box-shadow:0 4px 12px rgba(0,0,0,.15);
 }
 
-.hist-facts h2{
-  font-size:2rem;
-  color:#3d5a3d;
-  margin:0 0 .75rem;
+/* facts block (to the right of photo) */
+.hist-facts{
+  background: transparent !important; border: 0 !important; box-shadow: none !important; padding: 0;
 }
+.hist-facts h2{ font-size:2rem; color:#3d5a3d; margin:0 0 .75rem; }
 
-/* double-spaced 3 lines (ID, Title, Material) */
 .facts-grid{
   display:grid;
   grid-template-columns: 200px 1fr;
   column-gap: .75rem;
-  row-gap: calc(2 * 1em * 1.6);   /* ≈ double spacing between rows */
+  row-gap: calc(2 * 1em * 1.6); /* double spacing between rows */
 }
 .facts-grid dt{ font-weight:700; color:#2f2e1f; }
 .facts-grid dd{ margin:0; line-height:1.6; }
 
-/* ── BELOW CARDS: each narrative section in its own box ─── */
-.hist-block{
-  background: rgba(243,233,210,.95);
-  border: 1px solid #c8bfae;
-  border-radius: 12px;
-  padding: 1.25rem 1.5rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,.08);
-
-  width:min(1280px, 96vw);
-  margin: 0 auto 1.25rem;
+/* narrative sections BELOW the photo+facts, but still inside the SAME bin */
+.history-section{
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0;
 }
-.hist-block h3{ color:#3d5a3d; font-size:1.35rem; margin:.25rem 0 .65rem; }
-.hist-block p{ margin:.5rem 0; line-height:1.7; }
+.history-section + .history-section{
+  margin-top: 1rem;
+  padding-top: .75rem;
+  border-top: 1px solid #e2dccd;
+}
+.history-section h3{ color:#3d5a3d; font-size:1.35rem; margin:.25rem 0 .65rem; }
+.history-section p{ margin:.5rem 0; line-height:1.7; }
 
-/* back link */
+/* highlighted caution note inside the same bin */
+.caution-box{
+  background: #fff8e6;
+  border: 1px solid #e6d5a4;
+  border-left: 4px solid #d4b15a;
+  border-radius: 8px;
+  padding: .9rem 1rem;
+  margin: 1rem 0;
+}
+
+/* back link (black) */
 .back-collections{
   display:inline-block;
   margin:1rem 0 2.25rem;
@@ -241,71 +271,4 @@ body.shop-page { background-image: none; background-color: #d4c79a; }
   .hist-card{ grid-template-columns: 1fr; }
   .facts-grid{ grid-template-columns: 1fr; }
   .hist-photo{ max-width: 720px; margin:0 auto; }
-}
-/* ===== One-box layout for each History item ===== */
-
-/* Put the bin/box on the OUTER wrapper only */
-.history-bin{
-  background: rgba(243,233,210,.95);
-  border: 1px solid #c8bfae;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,.08);
-  padding: 1.25rem 1.5rem;
-  margin: 0 0 2rem;
-}
-
-/* Full-width green title band (keeps heading inside the same bin) */
-.history-bin .hist-head{
-  margin: -1.25rem -1.5rem 1rem;   /* stretch to bin edges */
-  padding: .7rem 1rem;
-  background: #3d5a3d;
-  color: #fff;
-  border-radius: 12px 12px 0 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-}
-
-/* Inner parts should NOT create their own boxes */
-.hist-card,
-.history-facts,
-.history-section{
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-  padding: 0;     /* let the bin’s padding handle spacing */
-}
-
-/* Keep your grid/photo/facts layout intact */
-.hist-card{ 
-  display: grid; 
-  grid-template-columns: 440px 1fr; 
-  gap: 24px; 
-  align-items: start; 
-  margin: 0 0 1rem;
-}
-
-/* Gentle dividers between text sections (still inside the same bin) */
-.history-section + .history-section{
-  margin-top: 1rem;
-  padding-top: .75rem;
-  border-top: 1px solid #e2dccd;
-}
-
-/* Keep the caution note as a highlighted block INSIDE the same bin */
-.caution-box{
-  background: #fff8e6;
-  border: 1px solid #e6d5a4;
-  border-left: 4px solid #d4b15a;
-  border-radius: 8px;
-  padding: .9rem 1rem;
-  margin: 1rem 0;
-}
-
-/* Back link stays black as requested */
-.back-collections{ color:#000; text-decoration: underline; }
-
-/* Responsive: one column on small screens (still one bin) */
-@media (max-width: 900px){
-  .hist-card{ grid-template-columns: 1fr; }
 }
