@@ -272,3 +272,33 @@ body.shop-page { background-image: none; background-color: #d4c79a; }
   .facts-grid{ grid-template-columns: 1fr; }
   .hist-photo{ max-width: 720px; margin:0 auto; }
 }
+ <style>
+    .cart-wrap{ max-width: 1100px; margin: 2rem auto; padding: 0 1rem; }
+    .cart-title{ text-align:center; color:#3d5a3d; font: 700 1.6rem Georgia, serif; margin-bottom:.75rem; }
+
+    table.cart { width:100%; border-collapse:collapse; margin: .5rem 0 1rem; background: rgba(243,233,210,.95); border:1px solid #c8bfae; }
+    .cart th, .cart td{ padding:.6rem .5rem; border:1px solid #c8bfae; vertical-align:middle; }
+    .cart th{ text-align:left; background:#eee4cc; }
+    .cart .thumb{ width:64px; height:48px; object-fit:cover; border-radius:6px; display:block; }
+    .cart .amt{ text-align:right; font-variant-numeric: tabular-nums; white-space:nowrap; }
+    .cart .rmv{ background:#c94f4f; color:#fff; border:0; padding:.35rem .55rem; border-radius:6px; cursor:pointer; }
+    .cart .rmv:hover{ background:#d76666; }
+
+    .summary{ display:grid; grid-template-columns: 1fr 280px; gap:.75rem; align-items:start; }
+    .summary-box{
+      background: rgba(243,233,210,.95);
+      border:1px solid #c8bfae; border-radius:10px;
+      padding:1rem; box-shadow: 0 2px 6px rgba(0,0,0,.08);
+    }
+    .summary-box table{ width:100%; border-collapse:collapse; }
+    .summary-box td{ padding:.25rem 0; }
+    .summary-box td:last-child{ text-align:right; font-variant-numeric: tabular-nums; white-space:nowrap; }
+
+    .actions{ margin:.75rem 0 1rem; display:flex; gap:.75rem; }
+    .btn{ background:#8b5e34; color:#fff; border:0; padding:.45rem .8rem; border-radius:6px; cursor:pointer; }
+    .btn:hover{ background:#a1683a; }
+    .link{ color:#0a0a0a; text-decoration:underline; background:none; border:0; cursor:pointer; padding:0; }
+
+    .member{ margin:.5rem 0 1rem; }
+    .note{ color:#555; font-size:.9rem; margin:.25rem 0 0; }
+  </style>
