@@ -10,12 +10,7 @@
     .cart-wrap{ max-width: 1100px; margin: 2rem auto; padding: 0 1rem; }
     .cart-title{ text-align:center; color:#3d5a3d; font: 700 1.6rem Georgia, serif; margin-bottom:.75rem; }
 
-    .cart-bar{ display:flex; gap:.5rem; justify-content:center; margin-bottom:1rem; }
-    .cart-bar button{ background:#8b5e34; color:#fff; border:0; padding:.45rem .8rem; border-radius:6px; cursor:pointer; }
-    .cart-bar button:hover{ background:#a1683a; }
-
-    table.cart { width:100%; border-collapse:collapse; margin: .5rem 0 1rem; background: rgba(243,233,210,.95);
-                 border:1px solid #c8bfae; }
+    table.cart { width:100%; border-collapse:collapse; margin: .5rem 0 1rem; background: rgba(243,233,210,.95); border:1px solid #c8bfae; }
     .cart th, .cart td{ padding:.6rem .5rem; border:1px solid #c8bfae; vertical-align:middle; }
     .cart th{ text-align:left; background:#eee4cc; }
     .cart .thumb{ width:64px; height:48px; object-fit:cover; border-radius:6px; display:block; }
@@ -23,7 +18,7 @@
     .cart .rmv{ background:#c94f4f; color:#fff; border:0; padding:.35rem .55rem; border-radius:6px; cursor:pointer; }
     .cart .rmv:hover{ background:#d76666; }
 
-    .summary{ display:grid; grid-template-columns: 1fr 240px; gap:.75rem; align-items:start; }
+    .summary{ display:grid; grid-template-columns: 1fr 280px; gap:.75rem; align-items:start; }
     .summary-box{
       background: rgba(243,233,210,.95);
       border:1px solid #c8bfae; border-radius:10px;
@@ -33,12 +28,13 @@
     .summary-box td{ padding:.25rem 0; }
     .summary-box td:last-child{ text-align:right; font-variant-numeric: tabular-nums; white-space:nowrap; }
 
-    .actions{ margin-top:.75rem; display:flex; gap:.75rem; }
-    .clear{ background:#3d5a3d; color:#fff; border:0; padding:.45rem .7rem; border-radius:6px; cursor:pointer; }
-    .clear:hover{ background:#4f7350; }
-    .keep{ color:#0a0a0a; text-decoration:underline; background:none; border:0; cursor:pointer; padding:0; }
+    .actions{ margin:.75rem 0 1rem; display:flex; gap:.75rem; }
+    .btn{ background:#8b5e34; color:#fff; border:0; padding:.45rem .8rem; border-radius:6px; cursor:pointer; }
+    .btn:hover{ background:#a1683a; }
+    .link{ color:#0a0a0a; text-decoration:underline; background:none; border:0; cursor:pointer; padding:0; }
 
     .member{ margin:.5rem 0 1rem; }
+    .note{ color:#555; font-size:.9rem; margin:.25rem 0 0; }
   </style>
 </head>
 <body class="collections-page">
@@ -57,8 +53,9 @@
 
     <div class="member">
       <label>
-        <input type="checkbox" id="memberChk"> Member Discount (15%)
+        <input type="checkbox" id="memberChk" onchange="render()"> Member Discount (15%)
       </label>
+      <div class="note">Volume discount applies at $50 / $100 / $200. If both apply, you’ll choose one.</div>
     </div>
 
     <table class="cart" id="cartTable" aria-describedby="summary">
@@ -72,22 +69,20 @@
           <th style="width:120px;">Remove</th>
         </tr>
       </thead>
-      <tbody id="cartRows">
-        <!-- rows injected by render() -->
-      </tbody>
+      <tbody id="cartRows"></tbody>
     </table>
 
     <div class="summary" id="summary">
-      <div class="actions">
-        <button class="clear" id="clearBtn">Clear Cart</button>
-        <button class="keep" id="keepBtn" onclick="location.href='shop.html'">Keep Shopping</button>
+      <div>
+        <div class="actions">
+          <button class="btn" onclick="window.__clearCart=1; render();">Clear Cart</button>
+          <button class="link" onclick="location.href='shop.html'">Keep Shopping</button>
+        </div>
       </div>
 
       <div class="summary-box" aria-live="polite">
         <table>
-          <tbody id="summaryRows">
-            <!-- amounts injected by render() -->
-          </tbody>
+          <tbody id="summaryRows"></tbody>
         </table>
       </div>
     </div>
@@ -95,140 +90,147 @@
 
   <footer class="site-footer">
     <p>This is a fictitious website created purely for academic purposes.</p>
-    <p>The content in this shop was entirely created by AI under human direction and then curated, reviewed, and edited by a human before being published.</p>
+    <p>The content in this shop was created by AI under human direction and then curated/edited by a human.</p>
   </footer>
 
-  <script src="../js/placeholder.js"></script>
   <script>
-    // ================= CONSTANTS =================
-    const TAX_RATE = 0.102;                 // 10.2%
-    const MEMBER_DISCOUNT_RATE = 0.15;      // 15%
-    const SHIPPING_RATE = 25.00;            // flat
-    const VOLUME_DISCOUNT_TIERS = [         // based on ItemTotal
-      { min: 0,    max: 49.99, rate: 0.00 },
-      { min: 50,   max: 99.99, rate: 0.05 },
-      { min: 100,  max: 199.99,rate: 0.10 },
-      { min: 200,  max: Infinity, rate: 0.15 }
-    ];
-
-    // ================ UTILITIES =================
-    const $ = sel => document.querySelector(sel);
-
-    function fmtCurrency(n){
-      const neg = n < 0;
-      const abs = Math.abs(n);
-      const s = '$' + abs.toFixed(2);
-      return neg ? '(' + s + ')' : s;
-    }
-
-    function volumeRateFor(total){
-      const tier = VOLUME_DISCOUNT_TIERS.find(t => total >= t.min && total <= t.max);
-      return tier ? tier.rate : 0;
-    }
-
-    // ================ RENDER ====================
+    /* Single render() (no other functions) — handles reading/writing cart, building rows, and math */
     function render(){
-      let cart = readCart();
-      const rows = $('#cartRows');
-      rows.innerHTML = '';
+      // ---- constants ----
+      var TAX_RATE = 0.102;      // 10.2%
+      var MEMBER_RATE = 0.15;    // 15%
+      var SHIPPING_FLAT = 25.00; // flat if cart not empty
+      var TIERS = [
+        { min: 0,    max: 49.99,  rate: 0.00 },
+        { min: 50,   max: 99.99,  rate: 0.05 },
+        { min: 100,  max: 199.99, rate: 0.10 },
+        { min: 200,  max: 1e12,   rate: 0.15 }
+      ];
 
-      // empty cart UX
-      if (cart.length === 0){
-        rows.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:1rem;">
-          Your cart is empty.
-        </td></tr>`;
-      } else {
-        // build item rows
-        cart.forEach(item=>{
-          const lineTotal = item.unitPrice * item.qty;
-          const tr = document.createElement('tr');
-          tr.innerHTML = `
-            <td><img class="thumb" src="${item.image}" alt=""></td>
-            <td>${item.name}</td>
-            <td class="amt">${item.qty}</td>
-            <td class="amt">${fmtCurrency(item.unitPrice)}</td>
-            <td class="amt">${fmtCurrency(lineTotal)}</td>
-            <td><button class="rmv" data-id="${item.id}">Remove</button></td>
-          `;
-          rows.appendChild(tr);
-        });
+      // ---- read cart + member from storage ----
+      var cartObj = {};
+      try { cartObj = JSON.parse(localStorage.getItem('cart') || '{}'); } catch(e){ cartObj = {}; }
+      var member = false;
+      try { member = (localStorage.getItem('member') === 'true'); } catch(e){ member = false; }
+
+      // apply UI checkbox (if present)
+      var memberChk = document.getElementById('memberChk');
+      if (memberChk){
+        if (memberChk.checked !== member){ memberChk.checked = member; }
+        // persist any new state from checkbox (onchange also calls render, but this keeps it single-source)
+        member = memberChk.checked ? true : false;
+        try { localStorage.setItem('member', member ? 'true' : 'false'); } catch(e){}
       }
 
-      // === SUMMARY MATH (unrounded internal) ===
-      const itemTotal = cart.reduce((s,it)=> s + it.unitPrice * it.qty, 0);
+      // ---- handle inline commands (clear / remove) ----
+      if (window.__clearCart){
+        cartObj = {};
+        try { localStorage.setItem('cart', JSON.stringify(cartObj)); } catch(e){}
+        window.__clearCart = 0;
+      }
+      if (window.__removeId){
+        var rid = window.__removeId;
+        if (cartObj[rid]) { delete cartObj[rid]; }
+        try { localStorage.setItem('cart', JSON.stringify(cartObj)); } catch(e){}
+        window.__removeId = '';
+      }
 
-      const memberChecked = $('#memberChk').checked;
-      const volumeRate = volumeRateFor(itemTotal);
-      const volumeDiscount = itemTotal * volumeRate;
-      const memberDiscount = memberChecked ? itemTotal * MEMBER_DISCOUNT_RATE : 0;
+      // ---- table rows ----
+      var rowsEl = document.getElementById('cartRows');
+      if (rowsEl){
+        // build table
+        var keys = [];
+        for (var k in cartObj){ if (Object.prototype.hasOwnProperty.call(cartObj,k)) keys.push(k); }
 
-      // One-discount rule
-      let appliedMember = false, appliedVolume = false, discount = 0;
-
-      if (memberDiscount > 0 && volumeDiscount > 0){
-        // both could apply -> ask which one to use (teacher requirement)
-        const useMember = window.confirm(
-          'Both a Volume Discount and a Member Discount are available.\n' +
-          'Click "OK" to use the Member Discount (15%), or "Cancel" to use the Volume Discount.'
-        );
-        if (useMember){
-          appliedMember = true; discount = memberDiscount;
+        if (keys.length === 0){
+          rowsEl.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:1rem;">Your cart is empty.</td></tr>';
         } else {
-          appliedVolume = true; discount = volumeDiscount;
+          var html = '';
+          for (var i=0; i<keys.length; i++){
+            var it = cartObj[keys[i]];
+            var lineTotal = (it.unitPrice||0) * (it.qty||0);
+            // currency format inline
+            var sUnit = '$' + Math.abs((it.unitPrice||0)).toFixed(2);
+            var sLine = '$' + Math.abs(lineTotal).toFixed(2);
+            html += ''
+              + '<tr>'
+              +   '<td><img class="thumb" src="'+(it.image||'')+'" alt=""></td>'
+              +   '<td>'+(it.name||'')+'</td>'
+              +   '<td class="amt">'+(it.qty||0)+'</td>'
+              +   '<td class="amt">'+sUnit+'</td>'
+              +   '<td class="amt">'+sLine+'</td>'
+              +   '<td><button class="rmv" onclick="window.__removeId=\''+(it.id||'')+'\'; render();">Remove</button></td>'
+              + '</tr>';
+          }
+          rowsEl.innerHTML = html;
         }
+      }
+
+      // ---- summary math ----
+      var itemTotal = 0;
+      var anyItems = false;
+      for (var k2 in cartObj){
+        if (Object.prototype.hasOwnProperty.call(cartObj,k2)){
+          var it2 = cartObj[k2];
+          itemTotal += (it2.unitPrice||0) * (it2.qty||0);
+          anyItems = true;
+        }
+      }
+
+      // volume rate lookup (procedural)
+      var volumeRate = 0;
+      for (var j=0; j<TIERS.length; j++){
+        var t = TIERS[j];
+        if (itemTotal >= t.min && itemTotal <= t.max){ volumeRate = t.rate; break; }
+      }
+      var volumeDiscount = itemTotal * volumeRate;
+      var memberDiscount  = member ? itemTotal * MEMBER_RATE : 0;
+
+      // choose one discount
+      var appliedMember = false, appliedVolume = false, discount = 0;
+      if (memberDiscount > 0 && volumeDiscount > 0){
+        var useMember = window.confirm('Both a Volume Discount and a Member Discount are available.\nClick "OK" to use the Member Discount (15%), or "Cancel" to use the Volume Discount.');
+        if (useMember){ appliedMember = true; discount = memberDiscount; }
+        else { appliedVolume = true; discount = volumeDiscount; }
       } else if (memberDiscount > 0){
         appliedMember = true; discount = memberDiscount;
       } else if (volumeDiscount > 0){
         appliedVolume = true; discount = volumeDiscount;
       }
 
-      const shipping = cart.length === 0 ? 0 : SHIPPING_RATE;
-      const taxableSub = itemTotal - discount + shipping;
-      const taxAmt = taxableSub * TAX_RATE;
-      const invoiceTotal = taxableSub + taxAmt;
+      var shipping = anyItems ? SHIPPING_FLAT : 0;
+      var taxableSub = itemTotal - discount + shipping;
+      var taxAmt = taxableSub * TAX_RATE;
+      var invoiceTotal = taxableSub + taxAmt;
 
-      // === SUMMARY OUTPUT ===
-      const srows = $('#summaryRows');
-      srows.innerHTML = `
-        <tr><td>Subtotal of Items</td><td>${fmtCurrency(itemTotal)}</td></tr>
-        <tr><td>Volume Discount</td><td>${fmtCurrency(appliedVolume ? -discount : 0)}</td></tr>
-        <tr><td>Member Discount</td><td>${fmtCurrency(appliedMember ? -discount : 0)}</td></tr>
-        <tr><td>Shipping</td><td>${fmtCurrency(shipping)}</td></tr>
-        <tr><td><strong>Subtotal (Taxable amount)</strong></td><td><strong>${fmtCurrency(taxableSub)}</strong></td></tr>
-        <tr><td>Tax Rate</td><td>${(TAX_RATE*100).toFixed(2)}%</td></tr>
-        <tr><td>Tax Amount</td><td>${fmtCurrency(taxAmt)}</td></tr>
-        <tr><td><strong>Invoice Total</strong></td><td><strong>${fmtCurrency(invoiceTotal)}</strong></td></tr>
-      `;
+      // currency strings
+      var sItem = '$' + Math.abs(itemTotal).toFixed(2);
+      var sVol  = '$' + Math.abs(appliedVolume ? -discount : 0).toFixed(2);
+      var sMem  = '$' + Math.abs(appliedMember ? -discount : 0).toFixed(2);
+      var sShip = '$' + Math.abs(shipping).toFixed(2);
+      var sTaxb = '$' + Math.abs(taxableSub).toFixed(2);
+      var sTaxR = (TAX_RATE*100).toFixed(2) + '%';
+      var sTaxA = '$' + Math.abs(taxAmt).toFixed(2);
+      var sInv  = '$' + Math.abs(invoiceTotal).toFixed(2);
 
-      // wire remove buttons each render
-      rows.querySelectorAll('.rmv').forEach(btn=>{
-        btn.addEventListener('click', ()=>{
-          const id = btn.getAttribute('data-id');
-          cart = readCart().filter(it => it.id !== id);
-          writeCart(cart);
-          render();
-        });
-      });
+      // ---- summary output ----
+      var srows = document.getElementById('summaryRows');
+      if (srows){
+        srows.innerHTML = ''
+          + '<tr><td>Subtotal of Items</td><td>'+sItem+'</td></tr>'
+          + '<tr><td>Volume Discount</td><td>'+sVol+'</td></tr>'
+          + '<tr><td>Member Discount</td><td>'+sMem+'</td></tr>'
+          + '<tr><td>Shipping</td><td>'+sShip+'</td></tr>'
+          + '<tr><td><strong>Subtotal (Taxable amount)</strong></td><td><strong>'+sTaxb+'</strong></td></tr>'
+          + '<tr><td>Tax Rate</td><td>'+sTaxR+'</td></tr>'
+          + '<tr><td>Tax Amount</td><td>'+sTaxA+'</td></tr>'
+          + '<tr><td><strong>Invoice Total</strong></td><td><strong>'+sInv+'</strong></td></tr>';
+      }
+
+      // ---- persist cart (if changed earlier) ----
+      try { localStorage.setItem('cart', JSON.stringify(cartObj)); } catch(e){}
     }
-
-    // ============ EVENTS & INIT ============
-    document.addEventListener('DOMContentLoaded', ()=>{
-      // restore member checkbox
-      const savedMember = localStorage.getItem(MEMBER_KEY);
-      if (savedMember === 'true') $('#memberChk').checked = true;
-
-      $('#memberChk').addEventListener('change', e=>{
-        localStorage.setItem(MEMBER_KEY, e.target.checked ? 'true' : 'false');
-        render();
-      });
-
-      $('#clearBtn').addEventListener('click', ()=>{
-        writeCart([]);
-        render();
-      });
-
-      render();
-    });
   </script>
+  <script>render();</script>
 </body>
 </html>
