@@ -203,22 +203,3 @@ body.shop-page { background-image: none; background-color: #d4c79a; }
   .facts-grid{ grid-template-columns:1fr; }
   .hist-photo{ max-width:700px; margin:0 auto; }
 }
-/* === Triple line spacing for Histories === */
-
-/* use the same paragraph line-height we set in .hist-block */
-:root { --hist-line: 1.7; }
-
-/* paragraphs under each artifact (experts, notes, etc.) */
-.hist-block p { line-height: var(--hist-line); margin: 0; }
-
-/* three line spaces between consecutive paragraphs */
-.hist-block p + p { margin-top: calc(3 * 1em * var(--hist-line)); }
-
-/* keep a normal gap after section headings, then paragraphs follow the triple spacing */
-.hist-block h3 { margin-top: calc(3 * 1em * var(--hist-line)); }
-.hist-block h3 + p { margin-top: .5rem; }
-
-/* Artifact Facts: three line spaces between each row */
-.facts-grid dt,
-.facts-grid dd { line-height: 1.6; }
-.facts-grid { row-gap: calc(3 * 1em * 1.6); }  /* ≈ three lines */
