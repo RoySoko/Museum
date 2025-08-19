@@ -19,7 +19,7 @@
       <button onclick="location.href='staff.html'">Staff</button>
       <button onclick="location.href='collections.html'">Collections</button>
       <button onclick="location.href='shop.html'">Shop</button>
-      <!-- Required by assignment: View Cart control -->
+      <!-- View Cart -->
       <button onclick="location.href='cart.html'" id="viewCartBtn">View Cart</button>
     </nav>
   </header>
@@ -38,7 +38,7 @@
                data-id="item-plush"
                data-tip="“A soft stand-in for the partner left at home.”"
                title="“A soft stand-in for the partner left at home.”">
-        <!-- Required by assignment: qty badge -->
+        <!-- qty badge -->
         <span class="qty-badge" aria-live="polite"></span>
         <img class="thumb"
              src="../images/shop/royceplush.png"
@@ -50,7 +50,7 @@
           <h3>Wirehaired Pointing Griffon Plush</h3>
           <p>.</p>
           <p class="price">$24.00</p>
-          <!-- Update per assignment: data-* + addToCart(this) -->
+          <!--  data-* + addToCart -->
           <button
             aria-label="Add Wirehaired Pointing Griffon Plush to cart"
             onclick="addToCart(this)"
@@ -155,7 +155,7 @@
     <p>All images and some content were generated with AI assistance and then curated/edited by a human.</p>
   </footer>
 
-  <!-- Single, reusable modal -->
+ 
   <div class="modal" id="itemModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal-card">
       <div class="modal-media">
@@ -169,13 +169,12 @@
   </div>
 
   <script>
-    // Tooltips handled by CSS via data-tip; keep title for native assistive tech.
+  
 
-    // === Assignment-provided Cart helpers ===
-    // this key links the shop to the cart
+
     const CART_KEY = 'museumCartV1';
 
-    // read/write JSON cart (array of {id,name,unitPrice,qty,image})
+    // array of id,name,unitPrice,qty,image)
     function readCart() {
       try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
       catch { return []; }
@@ -184,7 +183,7 @@
       localStorage.setItem(CART_KEY, JSON.stringify(cart));
     }
 
-    /* Called by Add to Cart buttons. Reads dataset, updates cart, updates badge. */
+    /*  Reads dataset, updates cart, updates badge. */
     function addToCart(btn) {
       const id = btn.dataset.id;
       const name = btn.dataset.name;
@@ -200,7 +199,7 @@
       }
       writeCart(cart);
 
-      // Update the item card's qty badge
+      // card's qty badge
       const card = btn.closest('.souvenir-item');
       if (card) {
         const badge = card.querySelector('.qty-badge');
@@ -211,7 +210,7 @@
       }
     }
 
-    // One modal for all items (kept exactly as you had it)
+    
     function openModal(imgEl){
       const full = imgEl.getAttribute('data-full') || imgEl.src;
       const title = imgEl.closest('.souvenir-item')?.querySelector('h3')?.textContent?.trim() || 'Preview';
@@ -229,7 +228,7 @@
     function closeModal(){
       document.getElementById('itemModal').classList.remove('open');
     }
-    // Close on backdrop click / Esc
+    
     document.getElementById('itemModal').addEventListener('click', (e)=>{
       if(e.target.id === 'itemModal') closeModal();
     });
@@ -237,7 +236,7 @@
       if(e.key === 'Escape') closeModal();
     });
 
-    // Initialize badges from any existing cart (no new functions; just run once)
+    // Initialize badges 
     (function(){
       const cart = readCart();
       const items = document.querySelectorAll('.souvenir-item');
