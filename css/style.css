@@ -214,3 +214,26 @@ body.shop-page { background-image: none; background-color: #d4c79a; }
 .facts-grid {
   row-gap: calc(2 * 1em * 1.6);  /* ≈ double spacing between rows */
 }
+/* ===== Histories: card boxes on each section ===== */
+.history-card,
+.history-facts,
+.history-section {
+  background: rgba(243,233,210,.95);     /* matches site panels */
+  border: 1px solid #c8bfae;
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,.08);
+  margin: 0 0 1.25rem;
+}
+
+/* Section headings inside cards */
+.history-section h3 {
+  margin-top: 0;
+  color:#3d5a3d;
+  font-family: Georgia, serif;
+}
+
+/* Keep the “double spacing” ONLY for the three facts rows */
+.facts-grid dt,
+.facts-grid dd { line-height: 1.6; }
+.facts-grid { row-gap: calc(2 * 1em * 1.6); }
