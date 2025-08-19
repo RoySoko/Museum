@@ -242,3 +242,70 @@ body.shop-page { background-image: none; background-color: #d4c79a; }
   .facts-grid{ grid-template-columns: 1fr; }
   .hist-photo{ max-width: 720px; margin:0 auto; }
 }
+/* ===== One-box layout for each History item ===== */
+
+/* Put the bin/box on the OUTER wrapper only */
+.history-bin{
+  background: rgba(243,233,210,.95);
+  border: 1px solid #c8bfae;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.08);
+  padding: 1.25rem 1.5rem;
+  margin: 0 0 2rem;
+}
+
+/* Full-width green title band (keeps heading inside the same bin) */
+.history-bin .hist-head{
+  margin: -1.25rem -1.5rem 1rem;   /* stretch to bin edges */
+  padding: .7rem 1rem;
+  background: #3d5a3d;
+  color: #fff;
+  border-radius: 12px 12px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+/* Inner parts should NOT create their own boxes */
+.hist-card,
+.history-facts,
+.history-section{
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0;     /* let the bin’s padding handle spacing */
+}
+
+/* Keep your grid/photo/facts layout intact */
+.hist-card{ 
+  display: grid; 
+  grid-template-columns: 440px 1fr; 
+  gap: 24px; 
+  align-items: start; 
+  margin: 0 0 1rem;
+}
+
+/* Gentle dividers between text sections (still inside the same bin) */
+.history-section + .history-section{
+  margin-top: 1rem;
+  padding-top: .75rem;
+  border-top: 1px solid #e2dccd;
+}
+
+/* Keep the caution note as a highlighted block INSIDE the same bin */
+.caution-box{
+  background: #fff8e6;
+  border: 1px solid #e6d5a4;
+  border-left: 4px solid #d4b15a;
+  border-radius: 8px;
+  padding: .9rem 1rem;
+  margin: 1rem 0;
+}
+
+/* Back link stays black as requested */
+.back-collections{ color:#000; text-decoration: underline; }
+
+/* Responsive: one column on small screens (still one bin) */
+@media (max-width: 900px){
+  .hist-card{ grid-template-columns: 1fr; }
+}
