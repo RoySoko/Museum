@@ -1,8 +1,5 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* ========== Reset & Base ========== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
   display: flex;
@@ -14,238 +11,191 @@ body {
   line-height: 1.5;
 }
 
+/* Header & Nav */
 header.site-header {
   background: rgba(46, 74, 53, 0.85);
   padding: 1rem;
   text-align: center;
 }
-header.site-header h1 {
-  color: #f3e9d2;
-  margin-bottom: 0.5rem;
-}
+header.site-header h1 { color: #f3e9d2; margin-bottom: 0.5rem; }
 nav.main-nav button {
-  background: #8b5e34;
-  color: #fff;
-  border: none;
-  padding: 0.5rem 1rem;
-  margin: 0 0.25rem;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.9rem;
+  background: #8b5e34; color: #fff; border: none; padding: 0.5rem 1rem;
+  margin: 0 0.25rem; border-radius: 4px; cursor: pointer; font-size: 0.9rem;
 }
-nav.main-nav button:hover {
-  background: #a1683a;
-}
+nav.main-nav button:hover { background: #a1683a; }
 
-.container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-}
+.container { width: 100%; max-width: 1200px; margin: 0 auto; }
 
+/* Home bits */
 .intro-box {
   background: rgba(243, 233, 210, 0.85);
-  padding: 2rem;
-  border-radius: 8px;
-  min-height: 150px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-  margin-bottom: 1.5rem;
+  padding: 2rem; border-radius: 8px; min-height: 150px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15); margin-bottom: 1.5rem;
 }
-
-.home-content {
-  flex: 1;
-  padding: 2rem 1rem;
-}
+.home-content { flex: 1; padding: 2rem 1rem; }
 .columns {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
 }
 .column {
   background: rgba(243, 233, 210, 0.9);
-  padding: 1rem;
-  border-radius: 6px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  padding: 1rem; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
-.column h2 {
-  margin-bottom: 0.5rem;
-}
+.column h2 { margin-bottom: 0.5rem; }
 
+/* Sub-nav used on Collections */
 .secondary-nav {
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
-  margin: 2rem 0;
+  display: flex; justify-content: center; gap: 0.5rem; margin: 2rem 0;
 }
 .secondary-nav button {
-  background: #8b5e34;
-  color: #fff;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.9rem;
+  background: #8b5e34; color: #fff; border: none; padding: 0.5rem 1rem;
+  border-radius: 4px; cursor: pointer; font-size: 0.9rem;
 }
-.secondary-nav button:hover {
-  background: #a1683a;
-}
+.secondary-nav button:hover { background: #a1683a; }
 
+/* Footer */
 footer.site-footer {
-  background: rgba(46, 74, 53, 0.85);
-  color: #f3e9d2;
-  text-align: center;
-  padding: 1rem;
-  font-size: 0.85rem;
+  background: rgba(46, 74, 53, 0.85); color: #f3e9d2; text-align: center;
+  padding: 1rem; font-size: 0.85rem;
 }
-footer.site-footer p + p {
-  margin-top: 0.5rem;
-}
+footer.site-footer p + p { margin-top: 0.5rem; }
 
-.staff-container {
-  max-width: 1000px;
-  margin: 2rem auto;
-  padding: 0 1rem;
-}
+/* ========== Staff ========== */
+.staff-container { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
 .staff-card {
-  display: flex;
-  flex-wrap: wrap;
-  background: rgba(243, 233, 210, 0.9);
-  border: 1px solid #c8bfae;
-  border-radius: 8px;
-  margin-bottom: 2rem;
-  overflow: hidden;
+  display: flex; flex-wrap: wrap; background: rgba(243, 233, 210, 0.9);
+  border: 1px solid #c8bfae; border-radius: 8px; margin-bottom: 2rem; overflow: hidden;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 .staff-card img {
-  flex: 1 1 300px;
-  max-width: 300px;
-  object-fit: cover;
-  border-right: 1px solid #c8bfae;
+  flex: 1 1 300px; max-width: 300px; object-fit: cover; border-right: 1px solid #c8bfae;
 }
-.staff-info {
-  flex: 2 1 400px;
-  padding: 1.5rem;
-}
-.staff-info h2 {
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-  font-family: 'Georgia', serif;
-  color: #3d5a3d;
-}
-.staff-info .title {
-  font-style: italic;
-  color: #5a4f3b;
-  margin-bottom: 1rem;
-}
-.staff-info p {
-  line-height: 1.6;
-  margin-bottom: 0.75rem;
-}
+.staff-info { flex: 2 1 400px; padding: 1.5rem; }
+.staff-info h2 { margin: 0 0 .5rem; font-family: 'Georgia', serif; color: #3d5a3d; }
+.staff-info .title { font-style: italic; color: #5a4f3b; margin-bottom: 1rem; }
+.staff-info p { line-height: 1.6; margin-bottom: 0.75rem; }
 
-body.staff-page {
-  background-image: none !important;
-  background-color: #d4c79a !important;
-}
-body.staff-page header.site-header {
-  background-color: #3d5a3d;
-}
-body.staff-page header.site-header h1 {
-  color: #eae6dc;
-}
-body.staff-page nav.main-nav button {
-  background-color: #a9a88f;
-  color: #2f2e1f;
-}
-body.staff-page nav.main-nav button:hover {
-  background-color: #c3c2aa;
-}
-body.staff-page footer.site-footer {
-  background-color: #3d5a3d;
-  color: #eae6dc;
-}
+/* Staff page theming */
+body.staff-page { background-image: none !important; background-color: #d4c79a !important; }
+body.staff-page header.site-header { background-color: #3d5a3d; }
+body.staff-page header.site-header h1 { color: #eae6dc; }
+body.staff-page nav.main-nav button { background-color: #a9a88f; color: #2f2e1f; }
+body.staff-page nav.main-nav button:hover { background-color: #c3c2aa; }
+body.staff-page footer.site-footer { background-color: #3d5a3d; color: #eae6dc; }
 
-.staff-container .staff-card:nth-child(even) {
-  flex-direction: row-reverse;
-}
-.staff-container .staff-card:nth-child(even) img {
-  border-right: none;
-  border-left: 1px solid #c8bfae;
-}
+.staff-container .staff-card:nth-child(even) { flex-direction: row-reverse; }
+.staff-container .staff-card:nth-child(even) img { border-right: none; border-left: 1px solid #c8bfae; }
 
 @media (max-width: 640px) {
   .staff-card { flex-direction: column !important; }
-  .staff-card img {
-    border-right: none !important;
-    border-bottom: 1px solid #c8bfae;
-  }
+  .staff-card img { border-right: none !important; border-bottom: 1px solid #c8bfae; }
 }
 
-/* ===== Collections page ===== */
-body.collections-page {
-  background-image: none !important;
-  background-color: #d4c79a !important;
-}
+/* ========== Collections (Archaeology & Anthropology) ========== */
+body.collections-page { background-image: none !important; background-color: #d4c79a !important; }
 
-.collection-container {
-  max-width: 1000px;
-  margin: 2rem auto;
-  padding: 0 1rem;
-}
+.collection-container { max-width: 1000px; margin: 2rem auto; padding: 0 1rem; }
 
 .collection-card {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  background: rgba(243,233,210,.9);
-  border: 1px solid #c8bfae;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0,0,0,.1);
-  margin-bottom: 2rem;
+  display: flex; flex-wrap: wrap; align-items: flex-start;
+  background: rgba(243,233,210,.9); border: 1px solid #c8bfae; border-radius: 8px;
+  overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,.1); margin-bottom: 2rem;
 }
 .collection-card img {
-  flex: 0 0 300px;
-  width: 300px;
-  height: auto;
-  object-fit: contain;
-  border-right: 1px solid #c8bfae;
-  align-self: flex-start;
+  flex: 0 0 300px; width: 300px; height: auto; object-fit: contain;
+  border-right: 1px solid #c8bfae; align-self: flex-start;
 }
-.collection-info {
-  flex: 1 1 400px;
-  padding: 1.5rem;
-}
-.collection-info h2 {
-  margin-top: 0;
-  margin-bottom: .25rem;
-  font-family: 'Georgia', serif;
-  color: #3d5a3d;
-}
-.collection-info .meta {
-  margin: .3rem 0;
-  font-style: italic;
-  color: #5a4f3b;
-}
-.collection-info p {
-  line-height: 1.6;
-  margin-bottom: .6rem;
-}
+.collection-info { flex: 1 1 400px; padding: 1.5rem; }
+.collection-info h2 { margin-top: 0; margin-bottom: .25rem; font-family: 'Georgia', serif; color: #3d5a3d; }
+.collection-info .meta { margin: .3rem 0; font-style: italic; color: #5a4f3b; }
+.collection-info p { line-height: 1.6; margin-bottom: .6rem; }
 
 .collection-section { display: none; }
 .collection-section.active { display: block; }
 
+.collection-tip{
+  text-align:center; color:#5a4f3b; margin:.5rem 0 1rem; font-style:italic;
+}
+
 @media (max-width: 640px) {
   .collection-card { flex-direction: column; }
   .collection-card img {
-    width: 100%;
-    max-width: 100%;
-    border-right: none;
-    border-bottom: 1px solid #c8bfae;
+    width: 100%; max-width: 100%; border-right: none; border-bottom: 1px solid #c8bfae;
   }
 }
 
-/* ===== Shop ===== */
+/* ========== Shop (unchanged) ========== */
 body.shop-page { background-image: none; background-color: #d4c79a; }
-
 .shop-wrap { padding: 2rem 1rem; }
-.shop-title { color: #3d5a3d; font-family: Georgia, serif; margin-bottom
+.shop-title { color: #3d5a3d; font-family: Georgia, serif; margin-bottom: .5rem; }
+.shop-note { color: #5a4f3b; margin-bottom: 1.25rem; }
+.shop-container{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+@media (max-width: 1100px){ .shop-container{ grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 800px){  .shop-container{ grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px){  .shop-container{ grid-template-columns: 1fr; } }
+.souvenir-item {
+  background: rgba(243,233,210,0.95); border: 1px solid #c8bfae; border-radius: 10px; padding: 1rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,.08); display: flex; flex-direction: column; transition: transform .1s ease-in-out;
+}
+.souvenir-item:hover { transform: translateY(-2px); }
+.souvenir-item img { width: 100%; height: auto; border-radius: 8px; cursor: pointer; margin-bottom: .75rem; }
+.item-title { margin: .25rem 0 .25rem; color: #2e2e2e; font-weight: 700; }
+.item-meta { font-size: .9rem; color: #6b5a45; margin-bottom: .35rem; }
+.item-desc { font-size: .95rem; margin-bottom: .35rem; }
+.price { margin: .35rem 0 0.6rem; color: #2f2e1f; }
+.btn-add {
+  background: #8b5e34; color: #fff; border: none; padding: .6rem .8rem; border-radius: 6px; cursor: pointer; font-weight: 700;
+}
+.btn-add:hover { background: #a1683a; }
+.sr-only {
+  position: absolute !important; height: 1px; width: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px);
+}
+
+/* ========== Modal (robust + centered) ========== */
+.modal {
+  display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+  background: rgba(0,0,0,.72); z-index: 10000;
+}
+.modal.is-open {
+  display: grid; place-items: start center; padding: 6vh 4vw;
+}
+.modal-content{
+  position: relative; width: min(900px, 92vw); max-height: 88vh; overflow: auto;
+  background: rgba(243,233,210,.95); border: 1px solid #c8bfae; border-radius:12px;
+  padding: 1.25rem 1.25rem 1rem; box-shadow: 0 10px 30px rgba(0,0,0,.35);
+}
+#modal-body { color:#2e2e2e; text-align:left; }
+#modal-body h2{ margin: 0 0 .25rem; font-family: Georgia, serif; color:#3d5a3d; font-size: 1.35rem; }
+#modal-body .modal-subhead{ font-weight:700; color:#5a4f3b; margin:.15rem 0 1rem; }
+#modal-body p{ margin:.5rem 0; line-height:1.6; }
+#modal-body p strong{ color:#2f2e1f; }
+.close-modal{
+  position:absolute; top:10px; right:10px; background:#3d5a3d; color:#fff; border:none;
+  border-radius:8px; padding:.4rem .6rem; cursor:pointer;
+}
+.close-modal:hover{ background:#507650; }
+.modal-item[hidden] { display:none !important; }
+
+/* ========== Histories (Exhibit Labels) ========== */
+#histories {
+  background: url('../images/collections/background.jpg') center/cover fixed; /* change to .png if needed */
+  padding: 1rem 0 2rem;
+}
+.histories-wrap{
+  max-width: 1100px; margin: 0 auto; padding: 1rem;
+}
+.history-card{
+  background: rgba(243,233,210,.95);
+  border: 1px solid #c8bfae; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,.1);
+  padding: 1rem; display: grid; grid-template-columns: 320px 1fr; gap: 1rem; margin-bottom: 1.25rem;
+}
+.history-card img{
+  width: 100%; height: auto; border-radius: 6px; object-fit: cover;
+}
+.history-body h3{ margin: 0 0 .25rem; font-family: Georgia, serif; color: #3d5a3d; }
+.history-body h4{ margin: .75rem 0 .25rem; color:#2e2e2e; }
+.history-body p{ margin: .35rem 0; }
+.back-link { display: inline-block; margin-top: .75rem; color: #3d5a3d; text-decoration: underline; }
+@media (max-width: 760px){
+  .history-card{ grid-template-columns: 1fr; }
+}
