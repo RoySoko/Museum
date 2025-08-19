@@ -50,6 +50,14 @@
     }
     .souvenir-item button:hover { background: #a1683a; }
 
+    /* Qty badge (teacher’s pattern) */
+    .qty-badge{
+      position:absolute; top:8px; right:8px;
+      background:#3d5a3d; color:#fff; border-radius:999px;
+      padding:.25rem .5rem; font-size:.78rem; box-shadow:0 2px 4px rgba(0,0,0,.15);
+      min-width: 2ch; text-align:center;
+    }
+
     /* Pretty tooltips driven by data-tip (also leaves native title intact) */
     .souvenir-item[data-tip]::after {
       content: attr(data-tip);
@@ -108,6 +116,8 @@
       <button onclick="location.href='staff.html'">Staff</button>
       <button onclick="location.href='collections.html'">Collections</button>
       <button onclick="location.href='shop.html'">Shop</button>
+      <!-- New: View Cart (teacher pattern) -->
+      <button onclick="location.href='cart.html'" id="viewCartBtn">View Cart</button>
     </nav>
   </header>
 
@@ -125,18 +135,23 @@
                data-id="item-plush"
                data-tip="“A soft stand-in for the partner left at home.”"
                title="“A soft stand-in for the partner left at home.”">
+        <span class="qty-badge" aria-live="polite"></span>
         <img class="thumb"
              src="../images/shop/royceplush.png"
              data-full="../images/shop/royceplush.png"
              alt="Wirehaired Pointing Griffon plush souvenir on wooden table"
-             onclick="openModal(this)"
-        />
+             onclick="openModal(this)"/>
         <div class="card-body">
           <h3>Wirehaired Pointing Griffon Plush</h3>
           <p>.</p>
           <p class="price">$24.00</p>
-          <button aria-label="Add Wirehaired Pointing Griffon Plush to cart"
-                  onclick="addToCart('item-plush','Wirehaired Pointing Griffon Plush')">
+          <button
+            aria-label="Add Wirehaired Pointing Griffon Plush to cart"
+            onclick="addToCart(this)"
+            data-id="item-plush"
+            data-name="Wirehaired Pointing Griffon Plush"
+            data-price="24.00"
+            data-image="../images/shop/royceplush.png">
             Add Wirehaired Pointing Griffon Plush to Cart
           </button>
         </div>
@@ -147,18 +162,23 @@
                data-id="item-postcard"
                data-tip="“The last bend where Royce waited.”"
                title="“The last bend where Royce waited.”">
+        <span class="qty-badge" aria-live="polite"></span>
         <img class="thumb"
              src="../images/shop/postcard.png"
              data-full="../images/shop/postcard.png"
              alt="Postcard of Royce the Great at the river bend"
-             onclick="openModal(this)"
-        />
+             onclick="openModal(this)"/>
         <div class="card-body">
           <h3>Postcard: Royce at the River Bend</h3>
           <p> </p>
           <p class="price">$3.50</p>
-          <button aria-label="Add Postcard: Royce at the River Bend to cart"
-                  onclick="addToCart('item-postcard','Postcard: Royce at the River Bend')">
+          <button
+            aria-label="Add Postcard: Royce at the River Bend to cart"
+            onclick="addToCart(this)"
+            data-id="item-postcard"
+            data-name="Postcard: Royce at the River Bend"
+            data-price="3.50"
+            data-image="../images/shop/postcard.png">
             Add Postcard: Royce at the River Bend to Cart
           </button>
         </div>
@@ -169,18 +189,23 @@
                data-id="item-whistle"
                data-tip="“The first trill after a long day’s hunt.”"
                title="“The first trill after a long day’s hunt.”">
+        <span class="qty-badge" aria-live="polite"></span>
         <img class="thumb"
              src="../images/shop/whistle.png"
              data-full="../images/shop/whistle.png"
              alt="Wooden dog whistle souvenir on table"
-             onclick="openModal(this)"
-        />
+             onclick="openModal(this)"/>
         <div class="card-body">
           <h3>Cedar Dog Whistle (Replica)</h3>
           <p> </p>
           <p class="price">$14.00</p>
-          <button aria-label="Add Cedar Dog Whistle to cart"
-                  onclick="addToCart('item-whistle','Cedar Dog Whistle (Replica)')">
+          <button
+            aria-label="Add Cedar Dog Whistle to cart"
+            onclick="addToCart(this)"
+            data-id="item-whistle"
+            data-name="Cedar Dog Whistle (Replica)"
+            data-price="14.00"
+            data-image="../images/shop/whistle.png">
             Add Cedar Dog Whistle (Replica) to Cart
           </button>
         </div>
@@ -191,18 +216,23 @@
                data-id="item-socks"
                data-tip="“Portable joy, carried like a prize.”"
                title="“Portable joy, carried like a prize.”">
+        <span class="qty-badge" aria-live="polite"></span>
         <img class="thumb"
              src="../images/shop/socks.png"
              data-full="../images/shop/socks.png"
              alt="Purple huckleberry-dyed socks folded on table"
-             onclick="openModal(this)"
-        />
+             onclick="openModal(this)"/>
         <div class="card-body">
           <h3>Huckleberry Dyed Socks</h3>
           <p></p>
           <p class="price">$12.00</p>
-          <button aria-label="Add Huckleberry Dyed Socks to cart"
-                  onclick="addToCart('item-socks','Huckleberry Dyed Socks')">
+          <button
+            aria-label="Add Huckleberry Dyed Socks to cart"
+            onclick="addToCart(this)"
+            data-id="item-socks"
+            data-name="Huckleberry Dyed Socks"
+            data-price="12.00"
+            data-image="../images/shop/socks.png">
             Add Huckleberry Dyed Socks to Cart
           </button>
         </div>
@@ -229,15 +259,11 @@
     </div>
   </div>
 
+  <!-- Shared cart helpers and addToCart() live here -->
+  <script src="../js/placeholder.js"></script>
+
   <script>
-    // Tooltips handled by CSS via data-tip; keep title for native assistive tech.
-
-    // Minimal Phase-1 cart stub
-    function addToCart(id, name){
-      alert('Added "' + name + '" to cart. ');
-    }
-
-    // One modal for all items
+    // One modal for all items (kept exactly as you had it)
     function openModal(imgEl){
       const full = imgEl.getAttribute('data-full') || imgEl.src;
       const title = imgEl.closest('.souvenir-item')?.querySelector('h3')?.textContent?.trim() || 'Preview';
@@ -252,16 +278,22 @@
 
       modal.classList.add('open');
     }
-    function closeModal(){
-      document.getElementById('itemModal').classList.remove('open');
+    function closeModal(){ document.getElementById('itemModal').classList.remove('open'); }
+
+    // Keep your original addToCart hook name but delegate to the shared one
+    function addToCart(btn){
+      if (window && typeof window.addToCartFromShop === 'function') {
+        window.addToCartFromShop(btn);
+      } else {
+        alert('Added to cart.');
+      }
     }
-    // Close on backdrop click / Esc
+
+    // Close on backdrop click / Esc (kept)
     document.getElementById('itemModal').addEventListener('click', (e)=>{
       if(e.target.id === 'itemModal') closeModal();
     });
-    document.addEventListener('keydown', (e)=>{
-      if(e.key === 'Escape') closeModal();
-    });
+    document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeModal(); });
   </script>
 </body>
 </html>
