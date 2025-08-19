@@ -29,7 +29,7 @@
 
     <p class="collection-tip">Click an image to read the Interpretation modal.</p>
 
-    <!-- ===================== Archaeology (UNCHANGED) ===================== -->
+    <!-- ===================== Archaeology ===================== -->
     <section id="archaeology" class="collection-section active" aria-label="Archaeology Collection">
       <div class="collection-card">
         <img
@@ -104,7 +104,7 @@
       </div>
     </section>
 
-    <!-- ===================== Anthropology (UNCHANGED) ===================== -->
+    <!-- ===================== Anthropology  ===================== -->
     <section id="anthropology" class="collection-section" aria-label="Anthropology Collection">
       <div class="collection-card">
         <img
@@ -177,10 +177,10 @@
       </div>
     </section>
 
-    <!-- ===================== Histories (NEW, 6 bins with photo + text together) ===================== -->
+    <!-- ===================== Histories ===================== -->
     <section id="histories" class="collection-section histories" aria-label="Histories Collection">
       <div class="hist-wrap">
-        <!-- Bin 1: Whistle -->
+        <!--  Whistle -->
         <article class="history-bin">
           <div class="hist-head">
           
@@ -230,7 +230,7 @@
           </section>
         </article>
 
-        <!-- Bin 2: Doll -->
+        <!-- Doll -->
         <article class="history-bin">
           <div class="hist-head">
            
@@ -280,7 +280,7 @@
           </section>
         </article>
 
-        <!-- Bin 3: Sock -->
+        <!--  Sock -->
         <article class="history-bin">
           <div class="hist-head">
          
@@ -329,7 +329,7 @@
           </section>
         </article>
 
-        <!-- Bin 4: Puppy Teeth -->
+        <!-- Puppy Teeth -->
         <article class="history-bin">
           <div class="hist-head">
            
@@ -375,7 +375,7 @@
           </section>
         </article>
 
-        <!-- Bin 5: Partial Hand -->
+        <!-- Partial Hand -->
         <article class="history-bin">
           <div class="hist-head">
             
@@ -420,7 +420,7 @@
           </section>
         </article>
 
-        <!-- Bin 6: Femur -->
+        <!-- Femur -->
         <article class="history-bin">
           <div class="hist-head">
          
@@ -469,7 +469,7 @@
     </section>
   </main>
 
-  <!-- ============== Modal shell (teacher pattern) ============== -->
+  <!-- ============== Modal  ============== -->
   <div class="modal" id="modal" style="display:none" role="dialog" aria-modal="true" aria-labelledby="modal-title">
     <div class="modal-content">
       <button class="close-modal" aria-label="Close">x</button>
@@ -477,7 +477,7 @@
     </div>
   </div>
 
-  <!-- ============== Hidden modal content blocks (Phase 1) ============== -->
+  
   <!-- Whistle -->
   <div class="modal-item" id="modal-text-whistle" hidden>
     <h2 id="modal-title">Hand-Carved Wooden Dog Whistle</h2>
@@ -563,14 +563,14 @@
       }
     }
 
-    // Default view on load (supports deep links)
+    
     document.addEventListener('DOMContentLoaded', () => {
       if (location.hash === '#anthropology') { showSection('anthropology'); }
       else if (location.hash === '#histories') { showSection('histories'); }
       else { showSection('archaeology'); }
     });
 
-    // ===== Modal behavior (teacher pattern) =====
+    
     (function(){
       const modal      = document.getElementById('modal');
       const modalBody  = document.getElementById('modal-body');
@@ -580,11 +580,11 @@
       function openFrom(selector, trigger){
         const src = document.querySelector(selector);
         if (!src) { console.warn('Missing modal content:', selector); return; }
-        modalBody.innerHTML = src.innerHTML;        // inject text HTML
+        modalBody.innerHTML = src.innerHTML;        
         modal.style.display = 'block';
         lastTrigger = trigger || null;
         closeBtn.focus();
-        document.body.style.overflow = 'hidden';    // prevent scroll behind
+        document.body.style.overflow = 'hidden';    
       }
 
       function closeModal(){
@@ -594,7 +594,7 @@
         if (lastTrigger) lastTrigger.focus();
       }
 
-      // open on any element with data-modal-target
+      
       document.addEventListener('click', (e)=>{
         const trigger = e.target.closest('[data-modal-target]');
         if (trigger){
