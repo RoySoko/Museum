@@ -187,3 +187,54 @@ function prevItem(section) {
 document.addEventListener('DOMContentLoaded', () => {
   initCollections();
 });
+// ===== Shared Cart Storage (teacher pattern) =====
+const CART_KEY = 'museumCartV1';
+const MEMBER_KEY = 'museumMemberV1'; // remember checkbox state on cart page
+
+function readCart() {
+  try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
+  catch { return []; }
+}
+function writeCart(cart) {
+  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+}
+
+// ===== Shop page: addToCart(this) delegate =====
+window.addToCartFromShop = function(btn){
+  const id        = btn.dataset.id;
+  const name      = btn.dataset.name;
+  const unitPrice = Number(btn.dataset.price);
+  const image     = btn.dataset.image;
+
+  let cart = readCart();
+  const idx = cart.findIndex(it => it.id === id);
+  if (idx >= 0) {
+    cart[idx].qty += 1;
+  } else {
+    cart.push({ id, name, unitPrice, qty: 1, image });
+  }
+  writeCart(cart);
+
+  // Update the item card's qty badge
+  const card = btn.closest('.souvenir-item');
+  if (card) {
+    const badge = card.querySelector('.qty-badge');
+    if (badge) {
+      const item = cart.find(it => it.id === id);
+      badge.textContent = item ? `Qty: ${item.qty}` : '';
+    }
+  }
+};
+
+// Hydrate all qty badges on load
+document.addEventListener('DOMContentLoaded', ()=>{
+  const cart = readCart();
+  document.querySelectorAll('.souvenir-item').forEach(card=>{
+    const id = card.getAttribute('data-id');
+    const badge = card.querySelector('.qty-badge');
+    if (!badge) return;
+    const it = cart.find(x => x.id === id);
+    badge.textContent = it ? `Qty: ${it.qty}` : '';
+  });
+});
+
