@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -109,6 +108,8 @@
       <button onclick="location.href='staff.html'">Staff</button>
       <button onclick="location.href='collections.html'">Collections</button>
       <button onclick="location.href='shop.html'">Shop</button>
+      <!-- Required by assignment: View Cart control -->
+      <button onclick="location.href='cart.html'" id="viewCartBtn">View Cart</button>
     </nav>
   </header>
 
@@ -126,6 +127,8 @@
                data-id="item-plush"
                data-tip="“A soft stand-in for the partner left at home.”"
                title="“A soft stand-in for the partner left at home.”">
+        <!-- Required by assignment: qty badge -->
+        <span class="qty-badge" aria-live="polite"></span>
         <img class="thumb"
              src="../images/shop/royceplush.png"
              data-full="../images/shop/royceplush.png"
@@ -136,8 +139,14 @@
           <h3>Wirehaired Pointing Griffon Plush</h3>
           <p>.</p>
           <p class="price">$24.00</p>
-          <button aria-label="Add Wirehaired Pointing Griffon Plush to cart"
-                  onclick="addToCart('item-plush','Wirehaired Pointing Griffon Plush')">
+          <!-- Update per assignment: data-* + addToCart(this) -->
+          <button
+            aria-label="Add Wirehaired Pointing Griffon Plush to cart"
+            onclick="addToCart(this)"
+            data-id="item-plush"
+            data-name="Wirehaired Pointing Griffon Plush"
+            data-price="24.00"
+            data-image="../images/shop/royceplush.png">
             Add Wirehaired Pointing Griffon Plush to Cart
           </button>
         </div>
@@ -148,6 +157,7 @@
                data-id="item-postcard"
                data-tip="“The last bend where Royce waited.”"
                title="“The last bend where Royce waited.”">
+        <span class="qty-badge" aria-live="polite"></span>
         <img class="thumb"
              src="../images/shop/postcard.png"
              data-full="../images/shop/postcard.png"
@@ -158,8 +168,13 @@
           <h3>Postcard: Royce at the River Bend</h3>
           <p> </p>
           <p class="price">$3.50</p>
-          <button aria-label="Add Postcard: Royce at the River Bend to cart"
-                  onclick="addToCart('item-postcard','Postcard: Royce at the River Bend')">
+          <button
+            aria-label="Add Postcard: Royce at the River Bend to cart"
+            onclick="addToCart(this)"
+            data-id="item-postcard"
+            data-name="Postcard: Royce at the River Bend"
+            data-price="3.50"
+            data-image="../images/shop/postcard.png">
             Add Postcard: Royce at the River Bend to Cart
           </button>
         </div>
@@ -170,6 +185,7 @@
                data-id="item-whistle"
                data-tip="“The first trill after a long day’s hunt.”"
                title="“The first trill after a long day’s hunt.”">
+        <span class="qty-badge" aria-live="polite"></span>
         <img class="thumb"
              src="../images/shop/whistle.png"
              data-full="../images/shop/whistle.png"
@@ -180,8 +196,13 @@
           <h3>Cedar Dog Whistle (Replica)</h3>
           <p> </p>
           <p class="price">$14.00</p>
-          <button aria-label="Add Cedar Dog Whistle to cart"
-                  onclick="addToCart('item-whistle','Cedar Dog Whistle (Replica)')">
+          <button
+            aria-label="Add Cedar Dog Whistle to cart"
+            onclick="addToCart(this)"
+            data-id="item-whistle"
+            data-name="Cedar Dog Whistle (Replica)"
+            data-price="14.00"
+            data-image="../images/shop/whistle.png">
             Add Cedar Dog Whistle (Replica) to Cart
           </button>
         </div>
@@ -192,6 +213,7 @@
                data-id="item-socks"
                data-tip="“Portable joy, carried like a prize.”"
                title="“Portable joy, carried like a prize.”">
+        <span class="qty-badge" aria-live="polite"></span>
         <img class="thumb"
              src="../images/shop/socks.png"
              data-full="../images/shop/socks.png"
@@ -202,8 +224,13 @@
           <h3>Huckleberry Dyed Socks</h3>
           <p></p>
           <p class="price">$12.00</p>
-          <button aria-label="Add Huckleberry Dyed Socks to cart"
-                  onclick="addToCart('item-socks','Huckleberry Dyed Socks')">
+          <button
+            aria-label="Add Huckleberry Dyed Socks to cart"
+            onclick="addToCart(this)"
+            data-id="item-socks"
+            data-name="Huckleberry Dyed Socks"
+            data-price="12.00"
+            data-image="../images/shop/socks.png">
             Add Huckleberry Dyed Socks to Cart
           </button>
         </div>
@@ -233,12 +260,47 @@
   <script>
     // Tooltips handled by CSS via data-tip; keep title for native assistive tech.
 
-    // Minimal Phase-1 cart stub
-    function addToCart(id, name){
-      alert('Added "' + name + '" to cart. ');
+    // === Assignment-provided Cart helpers ===
+    // this key links the shop to the cart
+    const CART_KEY = 'museumCartV1';
+
+    // read/write JSON cart (array of {id,name,unitPrice,qty,image})
+    function readCart() {
+      try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
+      catch { return []; }
+    }
+    function writeCart(cart) {
+      localStorage.setItem(CART_KEY, JSON.stringify(cart));
     }
 
-    // One modal for all items
+    /* Called by Add to Cart buttons. Reads dataset, updates cart, updates badge. */
+    function addToCart(btn) {
+      const id = btn.dataset.id;
+      const name = btn.dataset.name;
+      const unitPrice = Number(btn.dataset.price);
+      const image = btn.dataset.image;
+
+      let cart = readCart();
+      const idx = cart.findIndex(it => it.id === id);
+      if (idx >= 0) {
+        cart[idx].qty += 1;
+      } else {
+        cart.push({ id, name, unitPrice, qty: 1, image });
+      }
+      writeCart(cart);
+
+      // Update the item card's qty badge
+      const card = btn.closest('.souvenir-item');
+      if (card) {
+        const badge = card.querySelector('.qty-badge');
+        if (badge) {
+          const item = cart.find(it => it.id === id);
+          badge.textContent = item ? `Qty: ${item.qty}` : '';
+        }
+      }
+    }
+
+    // One modal for all items (kept exactly as you had it)
     function openModal(imgEl){
       const full = imgEl.getAttribute('data-full') || imgEl.src;
       const title = imgEl.closest('.souvenir-item')?.querySelector('h3')?.textContent?.trim() || 'Preview';
@@ -263,6 +325,21 @@
     document.addEventListener('keydown', (e)=>{
       if(e.key === 'Escape') closeModal();
     });
+
+    // Initialize badges from any existing cart (no new functions; just run once)
+    (function(){
+      const cart = readCart();
+      const items = document.querySelectorAll('.souvenir-item');
+      for (let i=0;i<items.length;i++){
+        const a = items[i];
+        const id = a.getAttribute('data-id');
+        const match = cart.find(it => it.id === id);
+        if (match && match.qty > 0){
+          const b = a.querySelector('.qty-badge');
+          if (b) b.textContent = `Qty: ${match.qty}`;
+        }
+      }
+    })();
   </script>
 </body>
 </html>
