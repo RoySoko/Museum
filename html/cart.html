@@ -170,16 +170,33 @@ try { localStorage.setItem('member', member ? 'true' : 'false'); } catch(e){}
       var memberDiscount  = member ? itemTotal * MEMBER_RATE : 0;
 
       // one-discount rule
-      var appliedMember = false, appliedVolume = false, discount = 0;
-      if (memberDiscount > 0 && volumeDiscount > 0){
-        var useMember = window.confirm('Both a Volume Discount and a Member Discount are available.\nClick "OK" to use the Member Discount (15%), or "Cancel" to use the Volume Discount.');
-        if (useMember){ appliedMember = true; discount = memberDiscount; }
-        else { appliedVolume = true; discount = volumeDiscount; }
-      } else if (memberDiscount > 0){
-        appliedMember = true; discount = memberDiscount;
-      } else if (volumeDiscount > 0){
-        appliedVolume = true; discount = volumeDiscount;
-      }
+    
+var appliedMember = false, appliedVolume = false, discount = 0;
+if (memberDiscount > 0 && volumeDiscount > 0){
+  var useMember = window.confirm(
+    'Both a Volume Discount and a Member Discount are available.\n' +
+    'Click "OK" to use the Member Discount (15%), or "Cancel" to use the Volume Discount.'
+  );
+  if (useMember){
+    appliedMember = true;
+    discount = memberDiscount;
+  } else {
+    appliedVolume = true;
+    discount = volumeDiscount;
+
+   
+    if (typeof memberChk !== 'undefined' && memberChk) {
+      memberChk.checked = false;
+    }
+    member = false;
+    try { localStorage.setItem('member', 'false'); } catch(e){}
+  }
+} else if (memberDiscount > 0){
+  appliedMember = true; discount = memberDiscount;
+} else if (volumeDiscount > 0){
+  appliedVolume = true; discount = volumeDiscount;
+}
+
 
       var shipping = cart.length > 0 ? SHIPPING_FLAT : 0;
       var taxableSub = itemTotal - discount + shipping;
