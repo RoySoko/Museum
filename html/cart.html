@@ -110,14 +110,23 @@
       cart = cleaned;
 
       
-      var member = false;
-      try { member = (localStorage.getItem('member') === 'true'); } catch(e){ member = false; }
-      var memberChk = document.getElementById('memberChk');
-      if (memberChk){
-        if (memberChk.checked !== member) memberChk.checked = member;
-        member = memberChk.checked ? true : false; 
-        try { localStorage.setItem('member', member ? 'true' : 'false'); } catch(e){}
-      }
+      
+  var memberChk = document.getElementById('memberChk');
+
+
+  if (!window.__initMemberSync && memberChk) {
+    try {
+      memberChk.checked = (localStorage.getItem('member') === 'true');
+    } catch(e) {}
+    window.__initMemberSync = 1;
+  }
+
+
+  var member = memberChk ? !!memberChk.checked : false;
+
+
+try { localStorage.setItem('member', member ? 'true' : 'false'); } catch(e){}
+
 
   
       var rowsEl = document.getElementById('cartRows');
